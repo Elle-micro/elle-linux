@@ -30,7 +30,7 @@ Elle Microstructure Modelling Package Version 2
 Copyright (C) 2006  Lynn Evans, Jens Becker, Mark Jessell, Daniel Koehn et al   
 
 ### Notes from Daniel
-- To install Elle, execute the script 'install_elle.sh', then everything will be installed and compiled. To make the script executable, if necessary, use the command: chmod +x install_elle.sh. 
+- To install Elle, execute the script **install_elle.sh** in the **scripts directory**, then everything will be installed and compiled. To make the script executable, if necessary, use the command: chmod +x install_elle.sh. 
 
 - The install script is for Linux, and I tested it on Ubuntu 22.02. There are major differences between Linux versions, so older versions require adjustment, as the one on the desktop computer in my office.
 
