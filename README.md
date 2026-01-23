@@ -1,3 +1,4 @@
+![Elle logo](elle.jpg) 
 # elle-linux
 linux compatibly version of elle   
 
