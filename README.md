@@ -30,17 +30,24 @@ Elle Microstructure Modelling Package Version 2
 Copyright (C) 2006  Lynn Evans, Jens Becker, Mark Jessell, Daniel Koehn et al   
 
 ### Notes from Daniel
-- To install Elle, execute the script **install_elle.sh** in the **scripts directory**, then everything will be installed and compiled. To make the script executable, if necessary, use the command: chmod +x install_elle.sh. 
-
+- To install Elle, execute the script **install_elle.sh** in the **scripts directory**, then everything will be installed and compiled. To make the script executable, if necessary, use the command:
+```
+  chmod +x install_elle.sh. 
+```
 - The install script is for Linux, and I tested it on Ubuntu 22.02. There are major differences between Linux versions, so older versions require adjustment, as the one on the desktop computer in my office.
 
 - If there are any issues, bugs, problems, or difficulty installing the software or if you have questions, feel free to contact Daniel Koehn.
 
-Also, to recompile all of ELLE after the install, to take the code modifications into account, use: cmake —build build -j
+Also, to recompile all of ELLE after the install, to take the code modifications into account, use: 
+
+```
+cmake —build build -j
+```
 
 I installed it on Ubuntu 24 as well 
 It worked without any issue on one computer but on the second one I had to install this by hand: 
 
+```
 wget https://ftp.gnu.org/gnu/gsl/gsl-2.7.tar.gz
 tar -zxvf gsl-2.7.tar.gz
 cd gsl-2.7
@@ -48,3 +55,4 @@ cd gsl-2.7
 make
 sudo make install
 sudo ldconfig
+```
