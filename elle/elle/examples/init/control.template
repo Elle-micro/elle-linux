@@ -1,0 +1,122 @@
+#!/bin/sh
+
+DEBUG=echo                         #for testing
+#DEBUG=                             #for running
+
+LOCAL=/usr/local
+BIN=$LOCAL/elle/bin                #location of the Elle applications
+STARTFILE=data.elle
+TIME=00
+LASTTIME=10
+
+TIMESTEP=5
+STAGES=5
+
+SAVEINTVL=10
+
+#     create the polygon input from the elle file
+PROCESS1=$BIN/elle2poly                #process 1
+PARAMETERS1="tmp.elle tmp.poly pb"    #input for process 1
+
+#     run basil
+PROCESS2=$LOCAL/basil/bin/basil        #process 2
+BASINFILE=intiltn3
+PARAMETERS2=$BASINFILE                 #input for process 2
+SaveBasil () {
+      echo /bin/cp FD.sols/basil FD.sols/$STARTFILE.$1
+      $DEBUG /bin/cp FD.sols/basil FD.sols/$STARTFILE.$1
+      echo /bin/cp FD.out/basil.out FD.out/$STARTFILE.out.$1
+      $DEBUG /bin/cp FD.out/basil.out FD.out/$STARTFILE.out.$1
+}
+SAVEPROCESS2="SaveBasil "
+
+#     convert to elle format
+PROCESS3=$BIN/basil2elle               #process 3
+PARAMETERS3="-i FD.sols/basil -r 2 -o b2etmp.elle"
+                                       #input for process 3
+
+#     let grains grow
+PROCESS4=./ellegg                      #process 4
+PARAMETERS4="-i b2etmp.elle -s $STAGES -f $STAGES -n"
+FILEROOT=growth
+SAVEPROCESS4="/bin/cp $FILEROOT$STAGES.elle $FILEROOT.elle."
+
+#     set the input for the first process
+PROCESS5=/bin/cp
+PARAMETERS5="$FILEROOT$STAGES.elle tmp.elle"
+
+LIST="1 2 3 4 5"
+
+
+#     initial setting of the input for the first process
+#     this is only done for TIME=0
+if [ $TIME -eq 0 ]
+then
+    echo copy $STARTFILE to tmp.elle
+    $DEBUG /bin/cp $STARTFILE tmp.elle
+fi
+if [ $? != 0 ]
+then
+  exit 1
+fi
+ERROR=0
+
+while  [ $TIME -lt $LASTTIME -a $ERROR -eq 0 ]
+do
+
+#     update time variable
+    TIME=`expr $TIME + $TIMESTEP`
+    if [ `expr $TIME \< 10` -gt 0 ]
+    then
+      TIME=0$TIME
+    fi
+    echo TIME=$TIME
+
+#     run the loop
+    for VAL in $LIST
+    do
+      unset COMMAND
+      unset SAVE
+#     set the command
+        case $VAL in
+        1) COMMAND="$PROCESS1 $PARAMETERS1"
+           SAVE=$SAVEPROCESS1
+           ;;
+        2) COMMAND="$PROCESS2 $PARAMETERS2"
+           SAVE=$SAVEPROCESS2
+            ;;
+        3) COMMAND="$PROCESS3 $PARAMETERS3"
+           SAVE=$SAVEPROCESS3
+            ;;
+        4) COMMAND="$PROCESS4 $PARAMETERS4"
+           SAVE=$SAVEPROCESS4
+            ;;
+        5) COMMAND="$PROCESS5 $PARAMETERS5"
+           SAVE=$SAVEPROCESS5
+            ;;
+        esac
+
+#     run the command
+        if [ $ERROR -eq 0 ]
+        then
+            echo $COMMAND
+            $DEBUG nice $COMMAND
+            if [ $? != 0 ]
+            then
+              ERROR=1
+            fi
+        fi
+#          save files, if requested interval and save command set
+        if [ `expr $TIME % $SAVEINTVL` -eq 0 -a $ERROR -eq 0 -a "$SAVE" ]
+        then
+            echo $SAVE$TIME
+            $DEBUG $SAVE$TIME
+            if [ $? != 0 ]
+            then
+              ERROR=1
+            fi
+        fi
+    done
+done
+
+exit $ERROR

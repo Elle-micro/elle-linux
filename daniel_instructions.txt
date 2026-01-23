@@ -1,0 +1,26 @@
+It was done for latte for now and also directly installs PhreeqC
+I am not sure about the other Elle processes we have not tested all that 
+
+
+maxime has finished the installation script for ELLE. You can download the new version of the software from https://github.com/Fatzi42/elle-linux-release. The script for the installation is located in scripts/install_elle.sh. 
+
+To install Elle, execute the script 'install_elle.sh', then everything will be installed and compiled. To make the script executable, if necessary, use the command: chmod +x install_elle.sh. 
+
+The install script is for Linux, and I tested it on Ubuntu 22.02. There are major differences between Linux versions, so older versions require adjustment, as the one on the desktop computer in my office.
+
+If there are any issues, bugs, problems, or difficulty installing the software or if you have questions, feel free to contact me.
+
+Also, to recompile all of ELLE after the install, to take the code modifications into account, use: cmake —build build -j
+
+I installed it on Ubuntu 24 as well 
+It worked without any issue on one computer but on the second one I had to install this by hand: 
+
+wget https://ftp.gnu.org/gnu/gsl/gsl-2.7.tar.gz
+tar -zxvf gsl-2.7.tar.gz
+cd gsl-2.7
+./configure
+make
+sudo make install
+sudo ldconfig
+
+The latte version is not the latest one I am still testing everything so you need to change some files in latte (but even these are still beta versions we are working on cleaning it) 

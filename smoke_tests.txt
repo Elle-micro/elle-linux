@@ -1,0 +1,20 @@
+[apt-gcc] --version:
+elle_cli (elle_core) version 2.7.1
+[apt-gcc] --selftest:
+selftest: OK
+[apt-gcc] DONE
+[apt-clang] --version:
+elle_cli (elle_core) version 2.7.1
+[apt-clang] --selftest:
+selftest: OK
+[apt-clang] DONE
+[conan-gcc] --version:
+elle_cli (elle_core) version 2.7.1
+[conan-gcc] --selftest:
+selftest: OK
+[conan-gcc] DONE
+[conan-clang] --version:
+elle_cli (elle_core) version 2.7.1
+[conan-clang] --selftest:
+selftest: OK
+[conan-clang] DONE

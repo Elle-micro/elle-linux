@@ -1,0 +1,16 @@
+BasedOnStyle: LLVM
+IndentWidth: 2
+ColumnLimit: 120
+BreakBeforeBraces: Attach
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<[^/]+>$'
+    Priority: 1
+  - Regex: '^<.*/.*>$'
+    Priority: 2
+  - Regex: '^[A-Za-z0-9_]+\\.h(pp)?$'
+    Priority: 3
+  - Regex: '.*'
+    Priority: 4
+PointerAlignment: Left

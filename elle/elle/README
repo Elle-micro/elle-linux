@@ -1,0 +1,42 @@
+# ELLE (Legacy Source Tree README)
+
+This directory once contained its own Imake / install script based build system.
+Those mechanisms (Imakefile, install.sh, install.win, config.guess/sub, Makefile, *.tmpl, extra.rules)
+have been removed in favor of a unified Conan + CMake + Ninja workflow at the repository root.
+
+## Current Build Instructions
+See the top-level `BUILD.md` for authoritative, up-to-date build, install, and packaging steps.
+Typical build (Release, headless):
+
+```
+conan install . -s build_type=Release --build=missing -of build
+cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+```
+
+Executables and libraries are written to the `build/` directory only; the source tree should remain clean.
+
+## GUI (Optional)
+If GUI support is reintroduced, it will be done through CMake options (e.g. `-DELLE_BUILD_GUI=ON`) once the
+`wxWidgets` dependency is added to `conanfile.txt`. Historical WX build paths in this directory are deprecated.
+
+## What Was Removed
+- Legacy install scripts: `install.sh`, `install.win`
+- Imake / X11 templates: `Imakefile`, `elle.tmpl`, `extra.rules`, `Makefile*`
+- Autoconf triplet helpers: `config.guess`, `config.sub`
+- Prebuilt static archives and object files (previous clean-up step)
+
+These files offered no functionality beyond what the consolidated CMake project now provides and could cause confusion.
+
+## Migration Notes
+Historical notes about source adjustments and modernization are tracked in `PORTING_NOTES.md` and `CHANGELOG.md`.
+If you need to reproduce an ancient environment, consult version control history prior to their removal.
+
+## Contributing
+See `CONTRIBUTING.md` at the repository root. Please avoid committing build outputs (`*.o`, legacy `lib*.a`, etc.); CI enforces a clean tree.
+
+## License
+Refer to the root `LICENSE`. Any legacy license texts in subfolders remain informational only.
+
+---
+This README now serves purely as a compatibility notice and pointer to the modern build system.

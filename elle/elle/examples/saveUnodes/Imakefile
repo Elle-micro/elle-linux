@@ -1,0 +1,29 @@
+#ifndef MotifDefines
+#ifdef SGIArchitecture
+#define XpmTop /usr
+#endif
+#include <Motif.tmpl>
+#endif
+
+
+/* change the next 4 lines to suit your application */
+LOCAL = ../..   /* location of the elle library code */
+SRCS=  saveUnodes.main.cc saveUnodes.elle.cc /* source files for your code */
+OBJS=  saveUnodes.main.o saveUnodes.elle.o /* object files for your code */
+THISAPP= saveUnodes            /* the name of your executable */
+
+TOP=$(LOCAL)
+#include "../../elle.tmpl"
+EXTRA_LOAD_FLAGS = -L$(TOP)/lib
+DEFINES= -DXSYB
+
+AllTarget($(THISAPP))
+
+.SUFFIXES: .cc .o
+	NormalCplusplusObjectRule()
+
+NormalCplusplusProgramTarget($(THISAPP),$(OBJS),$(DEPLIBS),$(LOCAL_LIBRARIES),-lm)
+
+InstallProgram($(THISAPP),$(BINDIR))
+
+DependTarget()

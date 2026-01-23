@@ -1,0 +1,15 @@
+# clang-tidy baseline
+# Lines in this file list diagnostic identifiers (optionally with a substring of the message)
+# that are currently tolerated. The CI job filters them out so only NEW issues fail once
+# the job becomes blocking.
+#
+# To regenerate a candidate baseline locally:
+#   ./scripts/tidy-check.sh > tidy-full.log 2>&1
+#   grep -E '^(.*):[0-9]+:[0-9]+: warning:' tidy-full.log | awk -F': warning: ' '{print $2}' | \
+#       sed 's/ \[\([^]]*\)\]$/ [\1]/' | awk -F' [' '{print $NF}' | tr -d '[]' | sort -u > .clang-tidy-baseline.txt
+# Then manually prune obviously low-value patterns.
+# For first adoption leave file empty to surface full set (non-blocking job).
+
+# Example (uncomment to suppress all modernize-use-nullptr warnings):
+# modernize-use-nullptr
+

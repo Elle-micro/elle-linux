@@ -1,0 +1,48 @@
+Checks: >
+	-*,
+	bugprone-*,
+	performance-*,
+	modernize-*,-modernize-use-trailing-return-type,
+	readability-*,-readability-magic-numbers,
+	cppcoreguidelines-*,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-owning-memory,-cppcoreguidelines-pro-type-reinterpret-cast,
+	portability-*,
+	clang-analyzer-*
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '^(src|include)/'
+AnalyzeTemporaryDtors: false
+FormatStyle: none
+InheritParentConfig: false
+
+# Limit diagnostics spam for initial adoption.
+Suppress: []
+
+CheckOptions:
+	- key:             modernize-use-nullptr.NullMacros
+		value:           'NULL'
+	- key:             readability-identifier-naming.VariableCase
+		value:           camelBack
+	- key:             readability-identifier-naming.PrivateMemberPrefix
+		value:           m_
+	- key:             readability-identifier-naming.ClassCase
+		value:           CamelCase
+	- key:             readability-identifier-naming.StructCase
+		value:           CamelCase
+	- key:             readability-identifier-naming.FunctionCase
+		value:           camelBack
+	- key:             readability-identifier-naming.ParameterCase
+		value:           camelBack
+	- key:             readability-identifier-naming.NamespaceCase
+		value:           CamelCase
+	- key:             readability-identifier-naming.GlobalConstantCase
+		value:           UPPER_CASE
+	- key:             readability-identifier-naming.EnumConstantCase
+		value:           CamelCase
+	- key:             readability-identifier-naming.ConstexprVariableCase
+		value:           camelBack
+
+# Future (uncomment incrementally once baseline is clean):
+#  - key: cppcoreguidelines-owning-memory (disabled currently)
+#  - key: cppcoreguidelines-avoid-magic-numbers (disabled currently)
+
+...

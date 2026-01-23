@@ -1,0 +1,58 @@
+CXX = g++
+
+F77LIB= -lfor
+
+RM=/bin/rm -f
+
+# 
+# change the next 4 lines for your application
+#
+LOCAL = /usr/local/elle
+SRCS=  main.template.cc nodes.template.cc
+OBJS=  main.template.o nodes.template.o
+THISAPP= elleapp
+
+BSRCD = $(LOCAL)/basecode
+PSRCD = $(LOCAL)/plotcode
+SSRCD = $(LOCAL)/statscode
+CSRCD = $(LOCAL)/gpc222
+MSRCD = $(TOP)/utilities/matrix
+B_OPTIONS  = -I$(BSRCD)
+P_OPTIONS  = -I$(PSRCD)
+S_OPTIONS  = -I$(SSRCD)
+C_OPTIONS  = -I$(CSRCD)
+M_OPTIONS  = -I$(MSRCD)
+BINDIR  = .
+LIBDIR  = $(LOCAL)/lib
+PLOTLIB  = -lplot
+ELLELIB  = -lelle
+CLIPLIB  = -lclip
+MATRLIB  = -lmatrix
+DEPPLOTLIB  = $(LIBDIR)/libplot.a
+DEPELLELIB  = $(LIBDIR)/libelle.a
+DEPCLIPLIB  = $(LIBDIR)/libclip.a
+DEPMATRLIB  = $(LIBDIR)/libmatrix.a
+
+EXTRA_LOAD_FLAGS = -L$(LOCAL)/lib -L/usr/X11R6/lib
+XLIBS= -lXm -lXt -lSM -lICE -lXext -lX11
+LOCAL_LIBRARIES = $(PLOTLIB) $(MATRLIB) $(ELLELIB) $(PLOTLIB) $(XLIBS)
+DEFINES= -DXSYB
+INCLUDES= $(B_OPTIONS) $(P_OPTIONS) $(S_OPTIONS) $(M_OPTIONS)
+CXXFLAGS= $(DEFINES) $(INCLUDES)
+
+all:: $(THISAPP)
+
+.SUFFIXES: .cc .o
+.cc.o:
+
+.cc.o:
+	$(RM) $@
+	$(CXX) -c $(CXXFLAGS) $(_NOOP_) $*.cc
+
+$(THISAPP): $(OBJS) $(DEPLIBS)
+	$(RM) $@
+	$(CXX) -o $@ $(CXXLDOPTIONS) $(OBJS) $(LOCAL_LIBRARIES) $(LDLIBS) -lm $(EXTRA_LOAD_FLAGS)
+
+clean::
+	$(RM) $(THISAPP)
+

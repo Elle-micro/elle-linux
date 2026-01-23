@@ -1,0 +1,37 @@
+#!/bin/sh
+if ! test $ELLEPATH
+then
+  echo Please set your environment variable $ELLEPATH
+  echo so that $ELLEPATH/binwx is the location of the
+  echo Elle executables
+  exit 1
+fi
+if test $ELLEPATH/binwx/basil
+then
+  BIN=$ELLEPATH/binwx #location of the Elle applications
+else
+  if test -a "$BASILPATH" -a -e $BASILPATH/bin/basil
+  then
+    BIN=$BASILPATH/bin #location of the Basil applications
+  else
+    echo Please set your environment variable $BASILPATH
+    echo or put links to Basil and Sybil in $ELLEPATH/binwx
+    exit 1
+  fi
+fi
+cd $ELLEPATH/../experiments/experiment_09_Pblast/a
+mkdir -p FD.sols; mkdir -p FD.out;
+$BIN/basil exp9a.in
+if test $? -eq 0
+then
+  if  test -e $BIN/sybil
+  then
+  $BIN/sybil -i exp9a.log
+  else
+    if test -a "$BASILPATH" -a -e $BASILPATH/bin/sybil
+    then
+    $BASILPATH/bin/sybil -i exp9a.log
+    fi
+  fi
+fi
+

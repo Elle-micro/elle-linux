@@ -1,32 +1,73 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
+# Elle project .gitignore
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
-*.lib
-
-# Executables
+*.bak
+*.last
+*.ico
+*.iss
+*.tmpl
 *.exe
-*.out
-*.app
+*.dll
+*.so
+*.pyc
+__pycache__/
+.DS_Store
+# Build and install files
+build/
+# Legacy / alternate build dir names (cleanup era)
+build-*/
+b-conan/
+build-test/
+build-pkg/
+build-rt-*/
+build-conan/
+build-gcc*/
+build-clang*/
+build-apt-*/
+build-gcc-log*/
+build-clang-logs/
+build-lock-verify/
+dist/
+*.log
+*build*.txt
+configure_*.txt
+package_build*.txt
+# Ignore legacy in-tree Elle compiled binaries (now built under build/)
+elle/elle/**/_base
+elle/elle/**/_b
+elle/elle/**/_x
+elle/elle/**/_wx
+elle/elle/**/triangle_b
+elle/elle/**/plotaxes_b
+elle/elle/**/showelleps_base
+elle/elle/**/showelle_wx
+elle/elle/**/experiment_launcher_wx
+elle/elle/**/lattestart_wx
+elle/elle/**/ppm2elle_wx
+elle/elle/**/ebsd2elle_wx
+elle/elle/**/elle2ebsd_wx
+elle/elle/**/elle2poly_base
+elle/elle/**/basil2elle_base
+elle/elle/**/fft2elle_wx
+elle/elle/**/elle2fft_wx
+elle/elle/**/poly2goof_wx
+elle/elle/**/goof2elle_wx
+install_*.log
+*.tmp
+conan.tmp.lock
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+# Experiments and extras
+elle/extras/elle_files/
+elle/extras/ppm_files/
+my_experiment[0-9]*.elle
+my_experiment[0-9]*.csv
+BUILD.md
+task.md
+ANALYSIS_REPORT.md
+PORTING_NOTES.md
+
+# Allow result Elle files like res1.elle, res200.elle to be tracked even if a broader pattern is added later
+!res[0-9]*.elle

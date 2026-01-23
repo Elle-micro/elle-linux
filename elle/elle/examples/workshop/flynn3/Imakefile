@@ -1,0 +1,19 @@
+#include "../../../elle.tmpl"
+TOP= $(ELLEPATH)
+
+/* change the next 4 lines to suit your application */
+SRCS=  flynn.main.cc flynn.elle.cc /* source files for your code */
+OBJS=  flynn.main.o flynn.elle.o /* object files for your code */
+THISAPP= elle_flynn3                      /* the name of your executable */
+
+.SUFFIXES: .cc .o
+.cc .o:
+    NormalCplusplusObjectRule()
+                                                                                
+                                                                                
+MakeBatch($(THISAPP),$(BTCHEXT),$(OBJS),$(BINDIRB))
+                                                                                
+MakeDisplayWX($(THISAPP),$(WXEXT),$(OBJS),$(BINDIRWX))
+                                                                                
+MakeDisplayX($(THISAPP),$(XEXT),$(OBJS),$(BINDIRX))
+

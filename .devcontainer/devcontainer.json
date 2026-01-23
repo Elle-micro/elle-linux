@@ -1,0 +1,28 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Ubuntu 24.04 C++20 Build",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "root",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake"
+      ],
+      "settings": {
+        // Use Zsh in the VS Code terminal
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        // (font renders on the host; optional but looks nice)
+        "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+        "workbench.colorTheme": "GitHub Dark Default"
+      }
+    }
+  },
+
+  // All tools baked into the image; no extra Features needed
+  "postCreateCommand": "conan --version || true"
+}

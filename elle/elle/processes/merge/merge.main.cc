@@ -1,0 +1,63 @@
+
+/*
+ *  main.cc
+ */
+
+#include "merge.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "error.h"
+#include "init.h"
+#include "parseopts.h"
+#include "runopts.h"
+#include "setup.h"
+#include "stats.h"
+
+main(int argc, char** argv) {
+  int err = 0;
+  extern int InitThisProcess(void);
+  UserData userdata;
+
+  /*
+   * initialise
+   */
+  ElleInit();
+
+  ElleUserData(userdata);
+  userdata[KeepFlynn] = NO_VAL;   // Set defaults
+  userdata[RemoveFlynn] = NO_VAL; // Set defaults
+  ElleSetUserData(userdata);
+  ElleSetOptNames("Keep", "Remove", "unused", "unused", "unused", "unused", "unused", "unused", "unused");
+
+  if (err = ParseOptions(argc, argv))
+    OnError("", err);
+
+  /*
+   * set the function to the one in your process file
+   */
+  ElleSetInitFunction(InitThisProcess);
+
+  /*
+   * set the interval for writing to the stats file
+  ES_SetstatsInterval(100);
+   */
+
+  /*
+   * set the base for naming statistics and elle files
+   */
+  ElleSetSaveFileRoot("merge");
+
+  /*
+   * set up the X window
+   */
+  if (ElleDisplay())
+
+    /*
+     * run your initialisation function and start the application
+     */
+    StartApp();
+
+  return (0);
+}

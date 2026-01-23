@@ -1,0 +1,7 @@
+units mg/l
+ph 5.08 
+temp 85 
+Alkalinity 100 
+Mg 420 
+Ca 41.2 
+Zn 10.0
