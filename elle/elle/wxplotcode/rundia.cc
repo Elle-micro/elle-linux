@@ -72,90 +72,77 @@ void RunDia::CreateControls()
 {
 	RunDia * item1 = this;
 
-	wxStaticBoxSizer * item6 = new wxStaticBoxSizer( wxVERTICAL,item1,wxT("Run option settings") );
-	wxBoxSizer * item2 = new wxBoxSizer( wxHORIZONTAL );
-	wxBoxSizer * item3 = new wxBoxSizer( wxVERTICAL );
-	wxBoxSizer * item4 = new wxBoxSizer( wxVERTICAL );
-	wxBoxSizer * item5 = new wxBoxSizer( wxHORIZONTAL );
-	wxBoxSizer *main1=new wxBoxSizer(wxVERTICAL);
-	wxBoxSizer *main=new wxBoxSizer(wxHORIZONTAL);
-	wxBoxSizer *main2=new wxBoxSizer(wxHORIZONTAL);
+	wxBoxSizer *main1 = new wxBoxSizer(wxVERTICAL);
+	wxBoxSizer *main  = new wxBoxSizer(wxHORIZONTAL);
+	wxBoxSizer *main2 = new wxBoxSizer(wxHORIZONTAL);
 
-	item2->Add( item3 );
-	item2->Add( item4 );
-	item6->Add( item2 );
-	item6->Add( item5 );
+	wxStaticBoxSizer * item6 = new wxStaticBoxSizer( wxVERTICAL, item1, wxT("Run option settings") );
+
+	wxFlexGridSizer * grid = new wxFlexGridSizer( 0, 2, 0, 0 );
+	grid->AddGrowableCol(1);
+
+	grid->Add( new wxStaticText( item1, -1, wxT("Stages"), wxDefaultPosition, wxSize(130,-1) ),
+	           0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	stages = new wxTextCtrl( item1, ID_stages, _(""), wxDefaultPosition, wxDefaultSize );
+	grid->Add( stages, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+
+	grid->Add( new wxStaticText( item1, -1, wxT("Save interval"), wxDefaultPosition, wxSize(130,-1) ),
+	           0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	sinterv = new wxTextCtrl( item1, ID_sinterv, _(""), wxDefaultPosition, wxDefaultSize );
+	grid->Add( sinterv, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+
+	grid->Add( new wxStaticText( item1, -1, wxT("Save file root"), wxDefaultPosition, wxSize(130,-1) ),
+	           0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	sfiler = new wxTextCtrl( item1, ID_sfiler, _(""), wxDefaultPosition, wxDefaultSize );
+	grid->Add( sfiler, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+
+	grid->Add( new wxStaticText( item1, -1, wxT("Save pics root"), wxDefaultPosition, wxSize(130,-1) ),
+	           0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	wxButton * spic = new wxButton( item1, ID_SaPic, _("SavePics"), wxDefaultPosition, wxDefaultSize );
+	grid->Add( spic, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+
+	grid->Add( new wxStaticText( item1, -1, wxT("Display frequency"), wxDefaultPosition, wxSize(130,-1) ),
+	           0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	dfreq = new wxTextCtrl( item1, ID_dfreq, _(""), wxDefaultPosition, wxDefaultSize );
+	grid->Add( dfreq, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+
+	grid->Add( new wxStaticText( item1, -1, wxT("Switch distance"), wxDefaultPosition, wxSize(130,-1) ),
+	           0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	switchd = new wxTextCtrl( item1, ID_switchd, _(""), wxDefaultPosition, wxDefaultSize );
+	grid->Add( switchd, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+
+	grid->Add( new wxStaticText( item1, -1, wxT("Speed up"), wxDefaultPosition, wxSize(130,-1) ),
+	           0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	sup = new wxTextCtrl( item1, ID_sup, _(""), wxDefaultPosition, wxDefaultSize );
+	grid->Add( sup, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+
+	item6->Add( grid );
+
+	logfile   = new wxCheckBox( item1, ID_logfile,       wxT("Save Logfile"),         wxDefaultPosition, wxDefaultSize );
+	logf      = new wxCheckBox( item1, ID_logfileappend, wxT("Append to old Logfile"), wxDefaultPosition, wxDefaultSize );
+	loglevel0 = new wxCheckBox( item1, ID_loglevel0,     wxT("Loglevel: quiet"),       wxDefaultPosition, wxDefaultSize );
+	loglevel1 = new wxCheckBox( item1, ID_loglevel1,     wxT("Loglevel: medium"),      wxDefaultPosition, wxDefaultSize );
+	loglevel2 = new wxCheckBox( item1, ID_loglevel2,     wxT("Loglevel: full"),        wxDefaultPosition, wxDefaultSize );
+	loglevel0->SetValue( true );
+	loglevel1->SetValue( false );
+	loglevel2->SetValue( false );
+	item6->Add( logfile,   0, wxALIGN_LEFT | wxALL, 5 );
+	item6->Add( logf,      0, wxALIGN_LEFT | wxALL, 5 );
+	item6->Add( loglevel0, 0, wxALIGN_LEFT | wxALL, 5 );
+	item6->Add( loglevel1, 0, wxALIGN_LEFT | wxALL, 5 );
+	item6->Add( loglevel2, 0, wxALIGN_LEFT | wxALL, 5 );
+
 	main->Add( item6 );
 	main1->Add( main );
 	main1->Add( main2 );
 
-	item1->SetSizer( main1 );
-	item1->SetAutoLayout( TRUE );
-
-	wxStaticText * l1 = new wxStaticText( item1, -1, wxT("Stages"), wxDefaultPosition, wxSize( 100, 28 ) );
-	item3->Add( l1, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	stages = new wxTextCtrl( item1, ID_stages, _( "" ), wxDefaultPosition, wxDefaultSize );
-	item4->Add( stages, 0, wxALIGN_RIGHT | wxALL, 5 );
-
-	wxStaticText * l2 = new wxStaticText( item1, -1, wxT("Save interval"), wxDefaultPosition, wxSize( 100, 25 ) );
-	item3->Add( l2, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	sinterv = new wxTextCtrl( item1, ID_sinterv, _( "" ), wxDefaultPosition, wxDefaultSize );
-	item4->Add( sinterv, 0, wxALIGN_RIGHT | wxALL, 5 );
-
-	wxStaticText * l3 = new wxStaticText( item1, -1, wxT("Save file root"), wxDefaultPosition, wxSize( 100, 25 ) );
-	item3->Add( l3, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	sfiler = new wxTextCtrl( item1, ID_sfiler, _( "" ), wxDefaultPosition, wxDefaultSize );
-	item4->Add( sfiler, 0, wxALIGN_RIGHT | wxALL, 5 );
-
-	wxStaticText * l14 = new wxStaticText( item1, -1, wxT("Save pics root"), wxDefaultPosition, wxSize( 130, 25 ) );
-	item3->Add( l14, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	wxButton * spic = new wxButton( item1, ID_SaPic, _( "SavePics" ), wxDefaultPosition, wxDefaultSize, 0 );
-	item4->Add( spic, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
-
-	dfreq = new wxTextCtrl( item1, ID_dfreq, _( "" ), wxDefaultPosition, wxDefaultSize );
-	item4->Add( dfreq, 0, wxALIGN_RIGHT | wxALL, 5 );
-
-	wxStaticText * l15 = new wxStaticText( item1, -1, wxT("Display frequency"), wxDefaultPosition, wxSize( 130, 25 ) );
-	item3->Add( l15, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	wxStaticText * l4 = new wxStaticText( item1, -1, wxT("Switch distance"), wxDefaultPosition, wxSize( 130, 25 ) );
-	item3->Add( l4, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	switchd = new wxTextCtrl( item1, ID_switchd, _( "" ), wxDefaultPosition, wxDefaultSize );
-	item4->Add( switchd, 0, wxALIGN_RIGHT | wxALL, 5 );
-
-	wxStaticText * l5 = new wxStaticText( item1, -1, wxT("Speed up"), wxDefaultPosition, wxSize( 100, 25 ) );
-	item3->Add( l5, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	sup = new wxTextCtrl( item1, ID_sup, _( "" ), wxDefaultPosition, wxDefaultSize );
-	item4->Add( sup, 0, wxALIGN_RIGHT | wxALL, 5 );
-
-	logfile = new wxCheckBox( item1, ID_logfile, wxT("Save Logfile"), wxDefaultPosition, wxDefaultSize );
-	logf = new wxCheckBox( item1, ID_logfileappend, wxT("Append to old Logfile"), wxDefaultPosition, wxDefaultSize );
-
-	loglevel0 = new wxCheckBox( item1, ID_loglevel0, wxT("Loglevel: quiet"), wxDefaultPosition, wxDefaultSize );
-	loglevel1 = new wxCheckBox( item1, ID_loglevel1, wxT("Loglevel: medium"), wxDefaultPosition, wxDefaultSize );
-	loglevel2 = new wxCheckBox( item1, ID_loglevel2, wxT("Loglevel: full"), wxDefaultPosition, wxDefaultSize );
-	loglevel0->SetValue( true );
-	loglevel1->SetValue( false );
-	loglevel2->SetValue( false );
-	item3->Add( logfile, 0, wxALIGN_LEFT | wxALL, 5 );
-	item3->Add( logf, 0, wxALIGN_LEFT | wxALL, 5 );
-	item3->Add( loglevel0, 0, wxALIGN_LEFT | wxALL, 5 );
-	item3->Add( loglevel1, 0, wxALIGN_LEFT | wxALL, 5 );
-	item3->Add( loglevel2, 0, wxALIGN_LEFT | wxALL, 5 );
-
-	wxButton * bdef = new wxButton( item1, ID_RDEFAULT, _( "Restore Run options" ), wxDefaultPosition, wxDefaultSize, 0 );
+	wxButton * bdef = new wxButton( item1, ID_RDEFAULT, _("Restore Run options"), wxDefaultPosition, wxDefaultSize );
 	main2->Add( bdef, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
 
-	wxButton * bok = new wxButton( item1, ID_OK, _( "OK" ), wxDefaultPosition, wxDefaultSize, 0 );
+	wxButton * bok = new wxButton( item1, ID_OK, _("OK"), wxDefaultPosition, wxDefaultSize );
 	main2->Add( bok, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
 
-	wxButton * bcan = new wxButton( item1, ID_Cancel, _( "Cancel" ), wxDefaultPosition, wxDefaultSize, 0 );
+	wxButton * bcan = new wxButton( item1, ID_Cancel, _("Cancel"), wxDefaultPosition, wxDefaultSize );
 	main2->Add( bcan, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
 
 	UserData ud;
@@ -191,6 +178,8 @@ void RunDia::CreateControls()
 	vsizer->Add( tx2, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5 );
 	vsizer->Add( tx3, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5 );
 	main->Add( vsizer );
+	item1->SetSizer( main1 );
+	item1->SetAutoLayout( TRUE );
 	Centre();
 	Init();
 }
