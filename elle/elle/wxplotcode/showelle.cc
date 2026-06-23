@@ -59,7 +59,7 @@ ShowelleFrame::ShowelleFrame( const wxString & title, const wxPoint & pos, const
     SetIcon( icon );
     GetClientSize( & width, & height );
     panel = new Canvas( this, width-10, height-10 );
-    logframe = new wxLogWindow( this, "Logging window", false, true );
+    logframe = new wxLogWindow( this, "Logging window", false, false );
     wxMenu * menuFile = new wxMenu;
     /*Supposed to be in only when it is working. it is not so I took it out
     *
