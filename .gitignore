@@ -71,3 +71,4 @@ PORTING_NOTES.md
 
 # Allow result Elle files like res1.elle, res200.elle to be tracked even if a broader pattern is added later
 !res[0-9]*.elle
+elle/elle/bin
