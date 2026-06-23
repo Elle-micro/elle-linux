@@ -23,9 +23,10 @@ double **dmatrix(long nrl, long nrh, long ncl, long nch);
 int **imatrix(long nrl, long nrh, long ncl, long nch);
 void free_dmatrix(double **m, long nrl, long nrh, long ncl, long nch);
 void free_imatrix(int **m, long nrl, long nrh, long ncl, long nch);
-double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh);
-void free_d3tensor(double ***t, long nrl, long nrh, long ncl, long nch,
-                   long ndl, long ndh);
+double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl,
+long ndh);
+void free_d3tensor(double ***t,long nrl, long nrh, long ncl, long nch,
+long ndl, long ndh);
 /*
  * Below this line are functions included for backward compatibility
  * only

@@ -1,44 +1,46 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: stats.h,v $
- * Revision:  $Revision: 1.4 $
- * Date:      $Date: 2012/08/16 06:42:34 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef ES_stats_h
 #define ES_stats_h
 /*!
-        \file		stats.h
-        \brief		Header for statistics functions
-        \par		Description:
-                                        declares types used in statistics
-   functions: struct stats_params NodeAttributeStats FoliationData
-
-                                        Statistic Function Declarations
+ 	\file		stats.h
+ 	\brief		Header for statistics functions
+ 	\par		Description:
+  					declares types used in statistics functions:
+  					struct stats_params
+  					NodeAttributeStats
+  					FoliationData
+ 
+  					Statistic Function Declarations
  */
 struct stats_params {
-  char file[FILENAME_MAX];
-  int frequency;
-  unsigned char nodes;
-  unsigned char grains;
-  unsigned char av_area;
-  unsigned char bnd_length;
-  unsigned char sides_m2;
-  unsigned char areas_m2;
+    char file[FILENAME_MAX];
+    int frequency;
+    unsigned char nodes;
+    unsigned char grains;
+    unsigned char av_area;
+    unsigned char bnd_length;
+    unsigned char sides_m2;
+    unsigned char areas_m2;
 };
 
 typedef struct {
-  double average;
-  double min;
-  double max;
+    double average;
+    double min;
+    double max;
 } NodeAttributeStats;
 
 typedef struct {
-  float maxAng, minAng;
-  float accuracy;
-  float gblength;
-  float ratio;
+    float maxAng, minAng;
+    float accuracy;
+    float gblength;
+    float ratio;
 } FoliationData;
 
 int ES_PanozzoAnalysis(int fid, FoliationData *data);
@@ -63,7 +65,8 @@ void ES_SetSavem2Sides(int val);
 int ES_Savem2Sides();
 void ES_SetSavem2Areas(int val);
 int ES_Savem2Areas();
-int ES_NodeAttributeStats(int attrib_index, NodeAttributeStats *n_stats);
+int ES_NodeAttributeStats(int attrib_index,
+                          NodeAttributeStats *n_stats);
 float ES_BoundaryLength();
 #ifdef __cplusplus
 }

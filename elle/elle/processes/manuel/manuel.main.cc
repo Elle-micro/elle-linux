@@ -3,41 +3,41 @@
  *  main.c
  */
 
-#include "manuel.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "error.h"
-#include "init.h"
 #include "parseopts.h"
 #include "runopts.h"
-#include "setup.h"
+#include "init.h"
 #include "stats.h"
+#include "setup.h"
+#include "manuel.h"
 
 #define EL_FILENAME_MAX 255
-char InFile[EL_FILENAME_MAX + 1];
+char InFile[EL_FILENAME_MAX+1];
 
-main(int argc, char** argv) {
-  int err = 0;
-  ElleRunFunc init;
-  extern int InitSS(void);
+main(int argc, char **argv)
+{
+    int err=0;
+    ElleRunFunc init;
+    extern int InitSS(void);
 
-  ElleInit();
+    ElleInit();
 
-  ElleSetInitFunction(InitSS);
+    ElleSetInitFunction(InitSS);
 
-  ElleSetOptNames("XVelocity", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused");
+    ElleSetOptNames("XVelocity","unused","unused","unused","unused","unused","unused","unused","unused");
 
-  if (err = ParseOptions(argc, argv))
-    OnError("", err);
+    if (err=ParseOptions(argc,argv))
+        OnError("",err);
 
-  ElleSetSaveFileRoot("manuel");
+    ElleSetSaveFileRoot("manuel");
 
-  if (ElleDisplay())
+    if (ElleDisplay()) SetupApp(argc,argv);
 
     /*
      * run init and run functions
      */
     StartApp();
-}
+} 

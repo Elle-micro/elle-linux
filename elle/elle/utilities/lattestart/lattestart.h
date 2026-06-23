@@ -7,24 +7,27 @@
 //-----------------------------------------------------------------------------
 
 #if defined(__GNUG__) && !defined(__APPLE__)
-#pragma interface "lattestart.h"
+    #pragma interface "lattestart.h"
 #endif
 
 //-----------------------------------------------------------------------------
 // Headers
 //-----------------------------------------------------------------------------
 
-#include "wx/app.h" // wxApp
+#include "wx/app.h"             // wxApp
 #include "wx/tooltip.h"
 
-class MyApp : public wxApp {
+class MyApp : public wxApp
+{
 
 public:
-  virtual bool OnInit();
+
+    virtual bool OnInit();
+
 };
 
 //-----------------------------------------------------------------------------
 // End single inclusion of this .h file condition
 //-----------------------------------------------------------------------------
 
-#endif
+#endif 

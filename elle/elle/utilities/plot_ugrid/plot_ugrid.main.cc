@@ -6,50 +6,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "error.h"
+#include "runopts.h"
 #include "init.h"
+#include "error.h"
+#include "setup.h"
 #include "parseopts.h"
 #include "plot_ugrid.h"
-#include "runopts.h"
-#include "setup.h"
 
-main(int argc, char **argv) {
-  int err = 0;
-  extern int InitThisProcess(void);
-  UserData userdata;
+main(int argc, char **argv)
+{
+    int err=0;
+    extern int InitThisProcess(void);
+    UserData userdata;
 
-  /*
-   * initialise
-   */
-  ElleInit();
+    /*
+     * initialise
+     */
+    ElleInit();
+  
+    ElleUserData(userdata);
+    userdata[UGridSize]=100; // Change default grid size
+    userdata[UGridAngle]=0; // Change default grid angle
+    ElleSetUserData(userdata);
+    ElleSetOptNames("UGridSize","unused","unused","unused","unused","unused","unused","unused","unused");
+    
+    if (argc>1) {
+        if (err=ParseOptions(argc,argv))
+            OnError("",err);
+    }
 
-  ElleUserData(userdata);
-  userdata[UGridSize] = 100; // Change default grid size
-  userdata[UGridAngle] = 0;  // Change default grid angle
-  ElleSetUserData(userdata);
-  ElleSetOptNames("UGridSize", "unused", "unused", "unused", "unused", "unused",
-                  "unused", "unused", "unused");
+    /*
+     * set up the X window
+     */
+    if (ElleDisplay()) SetupApp(argc,argv);
 
-  if (argc > 1) {
-    if (err = ParseOptions(argc, argv))
-      OnError("", err);
-  }
+    /*
+     * set the function to the one in your process file
+     */
+    ElleSetInitFunction(InitThisProcess);
 
-  /*
-   * set up the X window
-   */
-  if (ElleDisplay())
-    SetupApp(argc, argv);
+    /*
+     * run your initialisation function and start the application
+     */
+    StartApp();
 
-  /*
-   * set the function to the one in your process file
-   */
-  ElleSetInitFunction(InitThisProcess);
-
-  /*
-   * run your initialisation function and start the application
-   */
-  StartApp();
-
-  return (0);
-}
+     return(0);
+} 

@@ -2,19 +2,19 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to 1 if you have the declaration of `acosh', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_ACOSH 1
 
 /* Define to 1 if you have the declaration of `asinh', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_ASINH 1
 
 /* Define to 1 if you have the declaration of `atanh', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_ATANH 1
 
 /* Define to 1 if you have the declaration of `expm1', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_EXPM1 1
 
 /* Define to 1 if you have the declaration of `feenableexcept', and to 0 if
@@ -26,15 +26,15 @@
 #define HAVE_DECL_FESETTRAPENABLE 0
 
 /* Define to 1 if you have the declaration of `finite', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_FINITE 1
 
 /* Define to 1 if you have the declaration of `frexp', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_FREXP 1
 
 /* Define to 1 if you have the declaration of `hypot', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_HYPOT 1
 
 /* Define to 1 if you have the declaration of `isfinite', and to 0 if you
@@ -42,19 +42,19 @@
 #define HAVE_DECL_ISFINITE 0
 
 /* Define to 1 if you have the declaration of `isinf', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_ISINF 1
 
 /* Define to 1 if you have the declaration of `isnan', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_ISNAN 1
 
 /* Define to 1 if you have the declaration of `ldexp', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_LDEXP 1
 
 /* Define to 1 if you have the declaration of `log1p', and to 0 if you don't.
- */
+   */
 #define HAVE_DECL_LOG1P 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
@@ -270,14 +270,11 @@
 #endif
 
 #ifdef __GNUC__
-#define DISCARD_POINTER(p)                                                     \
-  do {                                                                         \
-    ;                                                                          \
-  } while (p ? 0 : 0);
+#define DISCARD_POINTER(p) do { ; } while(p ? 0 : 0);
 #else
 #define DISCARD_POINTER(p) /* ignoring discarded pointer */
 #endif
 
 #if defined(GSL_RANGE_CHECK_OFF) || !defined(GSL_RANGE_CHECK)
-#define GSL_RANGE_CHECK 0 /* turn off range checking by default internally */
+#define GSL_RANGE_CHECK 0  /* turn off range checking by default internally */
 #endif

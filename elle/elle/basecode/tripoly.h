@@ -1,9 +1,9 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: tripoly.h,v $
- * Revision:  $Revision: 1.2 $
- * Date:      $Date: 2005/07/12 07:16:25 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef _tripoly_h
@@ -14,12 +14,12 @@
 #endif
 
 struct flagvals {
-  unsigned char midptnodes;
-  unsigned char bndpts;
-  unsigned char edges;
-  unsigned char voronoi;
-  int quality;
-  float area;
+    unsigned char midptnodes;
+    unsigned char bndpts;
+    unsigned char edges;
+    unsigned char voronoi;
+    int quality;
+    float area;
 };
 
 #ifndef SUN
@@ -27,18 +27,22 @@ struct flagvals {
 #ifdef __cplusplus
 extern "C" {
 #endif
-int tripoly(struct triangulateio *out, char *infile, struct flagvals *flags,
-            char *optionaltxt, int *npolyp, int **ipoly);
+int tripoly(struct triangulateio *out, char *infile,
+            struct flagvals *flags, char *optionaltxt,
+            int *npolyp,int **ipoly);
 
-int readpolyinput(struct triangulateio *inp, char *infile,
-                  struct flagvals *flags, char *optionaltxt, int *maxindx,
-                  int **ielle, int *nbm, int *internal_bnd);
-int tripolypts(struct triangulateio *out, struct flagvals *flags, int numbndpts,
-               double *xvals, double *yvals, double *attr, int num,
-               int num_attr);
-int trivorpolypts(struct triangulateio *out, struct triangulateio *vorout,
-                  struct flagvals *flags, int numbndpts, double *xvals,
-                  double *yvals, double *attrib_vals, int num, int num_attr);
+int readpolyinput( struct triangulateio *inp, char *infile,
+             struct flagvals *flags, char *optionaltxt,
+             int *maxindx, int **ielle, int*nbm, int *internal_bnd);
+int tripolypts(struct triangulateio *out,
+            struct flagvals *flags,
+            int numbndpts, double *xvals, double *yvals, double *attr,
+            int num, int num_attr );
+int trivorpolypts( struct triangulateio *out, 
+				struct triangulateio *vorout,
+				struct flagvals *flags,
+             int numbndpts, double *xvals, double *yvals, 
+             double *attrib_vals, int num, int num_attr );
 int WritePoly(struct triangulateio *out, char *fname);
 void WriteVoronoiAsPoly(struct triangulateio *vorout);
 void initio(struct triangulateio *io);
@@ -46,7 +50,7 @@ void cleanio(struct triangulateio *io);
 #ifdef __cplusplus
 }
 #endif
-#else  /* SUN */
+#else /* SUN */
 int tripoly();
 int tripolypts();
 void initio();

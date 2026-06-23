@@ -14,8 +14,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-int attribute_set(char *infile, const char *key, int max, double *rgnattribs,
-                  double *dflt);
+int attribute_set(char *infile,const char *key,int max,
+                  double *rgnattribs,double *dflt);
 #ifdef __cplusplus
 }
 #endif

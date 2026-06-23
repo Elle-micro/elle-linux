@@ -7,45 +7,45 @@
 #include <stdlib.h>
 
 #include "error.h"
-#include "init.h"
 #include "parseopts.h"
+#include "init.h"
 #include "runopts.h"
 #include "setup.h"
 
-main(int argc, char **argv) {
-  int err = 0;
-  extern int InitThisProcess(void);
+main(int argc, char **argv)
+{
+    int err=0;
+    extern int InitThisProcess(void);
+ 
+//    printf("main()!!!!!!!!!!!!!!!!!!\n");
 
-  //    printf("main()!!!!!!!!!!!!!!!!!!\n");
+    /*
+     * initialise
+     */
+    ElleInit();
+    
+    if (err=ParseOptions(argc,argv))
+        OnError("",err);
 
-  /*
-   * initialise
-   */
-  ElleInit();
+    /*
+     * set the function to the one in your process file
+     */
+    ElleSetInitFunction(InitThisProcess);
 
-  if (err = ParseOptions(argc, argv))
-    OnError("", err);
+    /*
+     * set the base for naming statistics and elle files
+     */
+    ElleSetSaveFileRoot("ran.gns");
 
-  /*
-   * set the function to the one in your process file
-   */
-  ElleSetInitFunction(InitThisProcess);
+    /*
+     * set up the X window
+     */
+    if (ElleDisplay()) SetupApp(argc,argv);
 
-  /*
-   * set the base for naming statistics and elle files
-   */
-  ElleSetSaveFileRoot("ran.gns");
-
-  /*
-   * set up the X window
-   */
-  if (ElleDisplay())
-    SetupApp(argc, argv);
-
-  /*
-   * run your initialisation function
-   */
-  StartApp();
-
-  return (0);
-}
+    /*
+     * run your initialisation function
+     */
+    StartApp();
+    
+    return(0);
+} 

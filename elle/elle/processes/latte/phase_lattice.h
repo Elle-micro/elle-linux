@@ -1,189 +1,180 @@
 /******************************************************
- * Spring Code Mike 2.0
- *
- * Class Phase_Lattice in phase_lattice.h
- *
- * Basic header for Phase-transition Class Phase_Lattice
- * inherits Phase_Base that inherits the Lattic class
- *
- * Daniel and Jochen, March 2003
- * Mainz
- *
- * Daniel Dec. 2003
- *
- * Daniel Koehn and Till Sachau 2004/5
- ******************************************************/
+* Spring Code Mike 2.0
+*
+* Class Phase_Lattice in phase_lattice.h
+*
+* Basic header for Phase-transition Class Phase_Lattice
+* inherits Phase_Base that inherits the Lattic class
+*
+* Daniel and Jochen, March 2003
+* Mainz
+*
+* Daniel Dec. 2003
+*
+* Daniel Koehn and Till Sachau 2004/5
+******************************************************/
 #ifndef _E_phase_lattice_h
 #define _E_phase_lattice_h
 
 #include "phase_base.h"
 
-class Phase_Lattice : public Phase_Base {
-public:
-  float increase_rate_factor; // not used at the moment
-  float water_compres;        // water compressibility
-  float box_conc;             // concentration for the whole box
+class Phase_Lattice : public Phase_Base
+  {
+  public:
 
-  float concBox[800000]; // concentration box in the background
-  int fluid_volume;      // fluid volume
-  int old_fl_vol;        // old fluid volume
-  int max_y;             // size of conc Box
-  float count_time;      // additional time counter
 
-  int overall_dis_time; // damping for reactions
+    float increase_rate_factor;	// not used at the moment
+    float water_compres;		// water compressibility
+    float box_conc;			// concentration for the whole box
 
-  Phase_Lattice();    // Constructor
-  ~Phase_Lattice(){}; // Destructor
+    float concBox[800000];		// concentration box in the background
+    int fluid_volume;		// fluid volume
+    int old_fl_vol;			// old fluid volume
+    int max_y;			// size of conc Box
+    float count_time;		// additional time counter
 
-  //------------------------------------------------------------------
-  // usr functions for the intialization
-  //------------------------------------------------------------------
+    int overall_dis_time;		// damping for reactions
 
-  // set a fluid pressure in MPa
 
-  void Set_Fluid_Pressure(float pressure);
+    Phase_Lattice();                           // Constructor
+    ~Phase_Lattice()
+    {}
+    ;                        // Destructor
 
-  // dissolve a row between xmin and xmax
+    //------------------------------------------------------------------
+    // usr functions for the intialization
+    //------------------------------------------------------------------
 
-  void DissolveXRow(float xmin, float xmax);
+    // set a fluid pressure in MPa
 
-  // dissolve a row between ymin and ymax
+    void Set_Fluid_Pressure(float pressure);
 
-  void DissolveYRow(float ymin, float ymax, bool remove);
+    // dissolve a row between xmin and xmax
 
-  void DissolveYRowSinus(float ymin, float ymax, bool remove);
+    void DissolveXRow(float xmin, float xmax);
 
-  // create a circular hole with radius and shift it horizontally
+    // dissolve a row between ymin and ymax
 
-  void Make_Circular_Hole(float radius, float shift);
+    void DissolveYRow(float ymin, float ymax, bool remove);
+		
 
-  // create an ellipse and shift it horizontally, height in particles
+	void DissolveYRowSinus(float ymin, float ymax, bool remove);
 
-  void Make_Elliptical_Hole(float height, float ratio, float shift);
+    // create a circular hole with radius and shift it horizontally
 
-  // set a linear distribution on the surface energies
+    void Make_Circular_Hole(float radius, float shift);
 
-  void Set_Distribution_Surface_Energy(float distribution, float springdis);
+    // create an ellipse and shift it horizontally, height in particles
 
-  // set a diffusion constant
+    void Make_Elliptical_Hole(float height, float ratio, float shift);
 
-  void Set_Diffusion_Constant(float dif_constant);
+    // set a linear distribution on the surface energies
 
-  // start to use a concentration
+    void Set_Distribution_Surface_Energy(float distribution, float springdis);
 
-  void Set_Concentration();
+    // set a diffusion constant
 
-  // set an initial concentration
+    void Set_Diffusion_Constant(float dif_constant);
 
-  void Set_Concentration_Hole(float concentration);
+    // start to use a concentration
 
-  // set a gravitational gradient
+    void Set_Concentration();
 
-  void Set_Grav_Grad(float read_grav_grad);
+    // set an initial concentration
 
-  // set a gaussian distribution of reaction rates
+    void Set_Concentration_Hole(float concentration);
 
-  void SetGaussianRateDistribution(double g_mean, double g_sigma);
+    // set a gravitational gradient
 
-  // change rate of boundaries
+    void Set_Grav_Grad(float read_grav_grad);
 
-  void Set_RateFactor(float factor);
+    // set a gaussian distribution of reaction rates
 
-  // set a bimodal distribution of reaction constants and also elastic constant
+    void SetGaussianRateDistribution(double g_mean,double g_sigma);
 
-  void Set_Rate_Two_Phase(float ratio, float factor, float elastic);
+    // change rate of boundaries
 
-  void Set_Rate_Three_Phase(float ratio1, float factor1, float elastic1,
-                            float ratio2, float factor2, float elastic2);
+    void Set_RateFactor(float factor);
 
-  void Set_Rate_Two_Phase_Layer(float ratio, float factor, float elastic,
-                                float ymin, float ymax);
+    // set a bimodal distribution of reaction constants and also elastic constant
 
-  void Set_Rate_Two_Grains(float ratio, float factor);
+    void Set_Rate_Two_Phase(float ratio, float factor, float elastic);
 
-  // set a distribution on the molecular volume
+    // set a distribution on the molecular volume
 
-  void Set_Distribution_Particle_MV(float distribution);
+    void Set_Distribution_Particle_MV(float distribution);
 
-  // activate all elle grain boundaries
+    // activate all elle grain boundaries
 
-  void Active_Grain_Boundaries();
+    void Active_Grain_Boundaries();
 
-  // activate all particles
+    // activate all particles
 
-  void All_Active();
+    void All_Active();
+	
+	void SetFluidLatticeGasRandom(float percent);
+	
+	void SetWallsLatticeGas(int grain);
+	
+	void InsertFluidLatticeGas(float x, float percent);
+	
+	void RemoveFluidLatticeGas(float x);
+	
+	void SetFluidLatticeGasRandomGrain(float percent,int nbr);
+	
+	void UpdateFluidLatticeGas();
 
-  void SetFluidLatticeGasRandom(float percent);
+    // set a linear distribution on the mass of particles
 
-  void SetWallsLatticeGas(int grain);
+    void Set_Mass_Distribution(float mass_size, float factor);
 
-  void InsertFluidLatticeGas(float x, float percent);
+    // adjust concentration of hole particles -> averages concentration
 
-  void RemoveFluidLatticeGas(float x);
+    void Adjust_Concentration();
 
-  void SetFluidLatticeGasRandomGrain(float percent, int nbr);
+    // average concentration of the concentration box
 
-  void UpdateFluidLatticeGas();
+    void Adjust_Conc_Box(int change);
 
-  void UpdateFluidLatticeGasGravity();
+    // set a time for how often particles can change -> damping
 
-  void Make_Circular_Pore(float radius, float shift);
-  void Grow(float prob);
+    void Set_Dis_Time(int time);
 
-  // set a linear distribution on the mass of particles
+    // Initialize the concentration box
 
-  void Set_Mass_Distribution(float mass_size, float factor);
+    void Make_Concentration_Box(float ymax, float concentration);
 
-  // adjust concentration of hole particles -> averages concentration
+    // dump statistics
 
-  void Adjust_Concentration();
+    void DumpStressRow(double y_box_min,double y_box_max, double x_box_min,double x_box_max, int xrow);
 
-  // average concentration of the concentration box
+    void DumpYStressRow(double y_box_min,double y_box_max, double x_box_min,double x_box_max, int xrow);
 
-  void Adjust_Conc_Box(int change);
 
-  // set a time for how often particles can change -> damping
+    //------------------------------------------------------------------
+    // usr functions for the run, reactions
+    //------------------------------------------------------------------
 
-  void Set_Dis_Time(int time);
+    // dissolution as a function of the elastic and surface energy (for free surfaces)
 
-  // Initialize the concentration box
+    void Dissolution_Strain(int dump);
 
-  void Make_Concentration_Box(float ymax, float concentration);
+    // dissolution as a function of elastic and surface energies and normal stress
 
-  // dump statistics
+    void Dissolution_Strain_Stress(int dump);
 
-  void DumpStressRow(double y_box_min, double y_box_max, double x_box_min,
-                     double x_box_max, int xrow);
+    // dissolution as a function of elastic,surface energy and normal stress, use for stylolites
 
-  void DumpYStressRow(double y_box_min, double y_box_max, double x_box_min,
-                      double x_box_max, int xrow);
+    void Dissolution_Stylos(int dump, int stress, int shrink);
+	
+	
+	void Dissolution_StylosII(int dump, int stress, int use_grains, int shrink, int sizex);
 
-  //------------------------------------------------------------------
-  // usr functions for the run, reactions
-  //------------------------------------------------------------------
+    // dissolution and growth as a function of normal stress, elastic energy, surface energy and concentration
 
-  // dissolution as a function of the elastic and surface energy (for free
-  // surfaces)
+    void GrowthDissolution(int dump, int use_Box, int change, int experiment_time);
 
-  void Dissolution_Strain(int dump);
 
-  // dissolution as a function of elastic and surface energies and normal stress
-
-  void Dissolution_Strain_Stress(int dump);
-
-  // dissolution as a function of elastic,surface energy and normal stress, use
-  // for stylolites
-
-  void Dissolution_Stylos(int dump, int stress, int shrink);
-
-  void Dissolution_StylosII(int dump, int stress, int use_grains, int shrink,
-                            int sizex);
-
-  // dissolution and growth as a function of normal stress, elastic energy,
-  // surface energy and concentration
-
-  void GrowthDissolution(int dump, int use_Box, int change,
-                         int experiment_time);
-};
+  };
 
 #endif

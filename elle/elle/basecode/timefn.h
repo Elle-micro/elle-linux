@@ -1,9 +1,9 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: timefn.h,v $
- * Revision:  $Revision: 1.1.1.1 $
- * Date:      $Date: 2002/09/18 03:16:18 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef _E_timefn_h

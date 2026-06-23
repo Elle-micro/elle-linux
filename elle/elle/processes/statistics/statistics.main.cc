@@ -7,42 +7,44 @@
 #include <stdlib.h>
 
 #include "error.h"
-#include "init.h"
 #include "parseopts.h"
+#include "init.h"
 #include "runopts.h"
-#include "setup.h"
 #include "stats.h"
+#include "setup.h"
 
-main(int argc, char** argv) {
-  int err = 0;
-  extern int InitThisProcess(void);
+main(int argc, char **argv)
+{
+    int err=0;
+    extern int InitThisProcess(void);
+ 
+    /*
+     * initialise
+     */
+    ElleInit();
+    
+    if (err=ParseOptions(argc,argv))
+        OnError("",err);
 
-  /*
-   * initialise
-   */
-  ElleInit();
+    /*
+     * set the function to the one in your process file
+     */
+    ElleSetInitFunction(InitThisProcess);
 
-  if (err = ParseOptions(argc, argv))
-    OnError("", err);
+    ElleSetDisplay(0);
 
-  /*
-   * set the function to the one in your process file
-   */
-  ElleSetInitFunction(InitThisProcess);
+    ElleSetStages(1);
 
-  ElleSetDisplay(0);
+    /*
+     * set the interval for writing to the stats file
+    ES_SetstatsInterval(100);
+     */
+    ElleSetSaveFileRoot("stats");
 
-  ElleSetStages(1);
-
-  /*
-   * set the interval for writing to the stats file
-  ES_SetstatsInterval(100);
-   */
-  ElleSetSaveFileRoot("stats");
-
-  if (ElleDisplay())
-
+    if (ElleDisplay()) 
+        SetupApp(argc,argv);
+    
     StartApp();
-
-  return (0);
-}
+    
+     return(0);
+} 

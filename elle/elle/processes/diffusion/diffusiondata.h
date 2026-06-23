@@ -7,7 +7,7 @@
 #endif
 
 typedef struct {
-  double DIFF, CBND, dt;
+  double DIFF,CBND,dt;
   double *DeltaC, *Area, *Len0, *Len1, *Len2;
 } DiffusionData;
 
@@ -19,7 +19,7 @@ double DiffusionConstant();
 void SetDiffusionTimestep(double dt);
 double DiffusionTimestep();
 int SetupDiffusionArrays(struct triangulateio *tri);
-void DiffusionArrays(double **len0, double **len1, double **len2, double **area,
-                     double **deltaC);
+void DiffusionArrays(double **len0, double **len1, double **len2,
+                     double **area, double **deltaC);
 
 #endif

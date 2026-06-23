@@ -7,32 +7,33 @@
 #include <stdlib.h>
 
 #include "error.h"
-#include "init.h"
 #include "parseopts.h"
+#include "init.h"
 #include "runopts.h"
-#include "setup.h"
 #include "stats.h"
+#include "setup.h"
 
-main(int argc, char** argv) {
-  int err = 0;
-  extern int InitGrowth(void);
+main(int argc, char **argv)
+{
+    int err=0;
+    extern int InitGrowth(void);
 
-  ElleInit();
+    ElleInit();
 
-  ElleSetInitFunction(InitGrowth);
+    ElleSetInitFunction(InitGrowth);
 
-  if (err = ParseOptions(argc, argv))
-    OnError("", err);
-  // ES_SetstatsInterval(50);
+    if (err=ParseOptions(argc,argv))
+        OnError("",err);
+    //ES_SetstatsInterval(50);
 
-  ElleSetSaveFileRoot("growth");
+    ElleSetSaveFileRoot("growth");
 
-  if (ElleDisplay())
+    if (ElleDisplay()) SetupApp(argc,argv);
 
     /*
      * run init and run functions
      */
     StartApp();
 
-  return (0);
-}
+    return(0);
+} 

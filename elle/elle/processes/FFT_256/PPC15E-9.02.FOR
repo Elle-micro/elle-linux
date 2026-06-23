@@ -2928,7 +2928,7 @@ C
 C
 COLD      DIMENSION v1(nrows,ncols),v2(nrows,ncols)
 COLD      DIMENSION v_dif(6,6),v_ave(6,6)
-      DIMENSION v1(36),v2(36)
+      DIMENSION v1(*),v2(*)
       DIMENSION v_dif(36),v_ave(36)
 C
       do i=1,nrows*ncols
@@ -2951,7 +2951,7 @@ C
       FUNCTION tnorm(v,nrows,ncols)
 C
 COLD      DIMENSION v(nrows,ncols)
-      DIMENSION v(36)
+      DIMENSION v(*)
 C
       tnorm=0.d0
       do i=1,nrows*ncols

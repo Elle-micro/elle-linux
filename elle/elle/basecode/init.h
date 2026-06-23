@@ -1,9 +1,9 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: init.h,v $
- * Revision:  $Revision: 1.2 $
- * Date:      $Date: 2006/06/15 08:30:40 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef _E_init_h
@@ -11,9 +11,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-int ElleInit(void);   // explicit void
-int ElleReinit(void); // explicit void
-int ElleExit(void);   // explicit void
+int ElleInit();
+int ElleReinit();
+int ElleExit();
 #ifdef __cplusplus
 }
 #endif

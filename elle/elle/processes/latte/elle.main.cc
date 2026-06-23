@@ -7,92 +7,105 @@
 #include <stdlib.h>
 
 #include "error.h"
-#include "experiment.h"
-#include "file.h"
-#include "init.h"
 #include "parseopts.h"
+#include "init.h"
 #include "runopts.h"
+#include "file.h"
 #include "setup.h"
+#include "experiment.h"
 
-Experiment* MyExperiment;
+Experiment *MyExperiment;
 
-int main(int argc, char** argv) {
-  int err = 0;
-  UserData userdata;
 
-  //*-----------------------------------------
-  //* initialise
-  //*-----------------------------------------
+main(int argc, char **argv)
+{
+    int err=0;
+    UserData userdata;
 
-  ElleInit();
+    //*-----------------------------------------
+    //* initialise
+    //*-----------------------------------------
 
-  // extern int Init_Experiment(void);
+    ElleInit();
+	
+    //extern int Init_Experiment(void);
+	
+	MyExperiment = new Experiment;
 
-  MyExperiment = new Experiment;
+    //*--------------------------------------------------
+    //* set the function to the one in your process file
+    //*--------------------------------------------------
 
-  //*--------------------------------------------------
-  //* set the function to the one in your process file
-  //*--------------------------------------------------
+    //ElleSetInitFunction(InitSetMike);
+	
+	//ElleSetInitFunction(MyExperiment->Init_Experiment);
+	
+	ElleSetInitFunction(Init_Experiment);
 
-  // ElleSetInitFunction(InitSetMike);
+    ElleUserData(userdata);
+    userdata[0]=0; // Change default calculation mode
+      // -u 0 read experiment type and parameters from a zip file
+      //      e.g. if input elle file is res50.elle then read res50.zip
+      // -u 1 fracturing
+      // -u 2 fracture boudinage
+      // -u 3 expanding inclusions
+      // -u 4 shrinkage cracks
+      // -u 5 viscoelastic deformation
+      // -u 6 grooves
+      // -u 7 Stylolites
+      // -u 8 combine graingrowth and fractures
+      // -u 9 solid solid phase change
+      // -u 10 heat flow
+      // -u 11 pure grain growth
+      // -u 12 Lattice gas diffusion
+      // -u 13 Lattice gas fluid flow
+    ElleSetUserData(userdata);
 
-  // ElleSetInitFunction(MyExperiment->Init_Experiment);
+    ElleSetOptNames("Experiment","unused","unused","unused","unused","unused","unused","unused","unused");
 
-  ElleSetInitFunction(Init_Experiment);
+    if (err=ParseOptions(argc,argv))
+        OnError("",err);
 
-  ElleUserData(userdata);
-  userdata[0] = 0; // Change default calculation mode
-                   // -u 0 read experiment type and parameters from a zip file
-                   //      e.g. if input elle file is res50.elle then read res50.zip
-                   // -u 1 fracturing
-                   // -u 2 fracture boudinage
-                   // -u 3 expanding inclusions
-                   // -u 4 shrinkage cracks
-                   // -u 5 viscoelastic deformation
-                   // -u 6 grooves
-                   // -u 7 Stylolites
-                   // -u 8 combine graingrowth and fractures
-                   // -u 9 solid solid phase change
-                   // -u 10 heat flow
-                   // -u 11 pure grain growth
-                   // -u 12 Lattice gas diffusion
-                   // -u 13 Lattice gas fluid flow
-  ElleSetUserData(userdata);
+	
+    //*-------------------------------------------------------
+    //* set the base for naming statistics and elle files
+    //*------------------------------------------------------
 
-  ElleSetOptNames("Experiment", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused");
+    ElleSetSaveFileRoot("my_experiment");
 
-  if ((err = ParseOptions(argc, argv)))
-    OnError("", err);
+	
+    //*-------------------------------------
+    //* set up the X window
+    //*-------------------------------------
 
-  //*-------------------------------------------------------
-  //* set the base for naming statistics and elle files
-  //*------------------------------------------------------
+    if (ElleDisplay()) SetupApp(argc,argv);
 
-  ElleSetSaveFileRoot("my_experiment");
+    //*--------------------------------------------------------------
+    //* run your initialisation function and start the application
+    //*--------------------------------------------------------------
+	
+	
 
-  //*-------------------------------------
-  //* set up the X window
-  //*-------------------------------------
-  // Always start the application. StartApp() internally checks ElleDisplay()
-  // and will either launch the GUI loop or run headless initialisation/run
-  // functions. Previously this was guarded by `if (ElleDisplay())` which
-  // prevented any processing in headless (-n) mode, causing an immediate
-  // clean exit after initialisation.
-  StartApp();
+    StartApp();
+	
+	
+    CleanUp();
 
-  return (0);
+    return(0);
+} 
+extern int Init_Experiment(void)
+{
+	
+		//-----------------------------------------------------
+	  // Set the run function
+	  //-----------------------------------------------------
+
+		 ElleSetRunFunction(Run_Experiment);
+		MyExperiment->Init();
+    return 0;
 }
-extern int Init_Experiment(void) {
-
-  //-----------------------------------------------------
-  // Set the run function
-  //-----------------------------------------------------
-
-  ElleSetRunFunction(Run_Experiment);
-  MyExperiment->Init();
-  return 0;
-}
-extern int Run_Experiment() {
-  MyExperiment->Run();
-  return 0;
-}
+extern int Run_Experiment()
+	{
+		MyExperiment->Run();
+     return 0;
+	}

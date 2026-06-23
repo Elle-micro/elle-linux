@@ -6,16 +6,14 @@
 #ifndef _E_setup_h
 #define _E_setup_h
 
-#include <stdio.h> /* for FILE */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int StartApp(void); // explicit void
+int StartApp();
 int Run_App(FILE *);
 int SetupApp(int, char **);
-void Init_Data(void); // explicit void
+void Init_Data();
 #ifdef __cplusplus
 }
 #endif

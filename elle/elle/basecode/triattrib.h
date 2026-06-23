@@ -1,9 +1,9 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: triattrib.h,v $
- * Revision:  $Revision: 1.4 $
- * Date:      $Date: 2006/06/15 08:30:40 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef _E_triattrib_h
@@ -20,30 +20,29 @@
 #endif
 
 typedef struct {
-  double init_min, init_max;
-  double *elem;
+    double init_min, init_max;
+    double *elem;
 } attr_array;
 
 typedef struct {
-  struct triangulateio *tri;
-  attr_array *attribute;
-  int num_attributes;
-  int ref_id;
+    struct triangulateio *tri;
+    attr_array *attribute;
+    int num_attributes;
+    int ref_id;
 } Mesh;
 
 void ElleGetTriPtNeighbours(int index, std::vector<int> &nbnodes,
-                            std::vector<int> &on_bnd, unsigned char bnd);
+				std::vector<int> &on_bnd, unsigned char bnd );
 void ElleGetNodeTriPtNeighbours(int index, std::vector<int> &nbnodes,
-                                std::vector<int> &on_bnd, int nb_id,
-                                unsigned char bnd);
+				std::vector<int> &on_bnd, int nb_id, unsigned char bnd );
 int ElleTriPtOnBoundary(int index);
 #ifdef __cplusplus
 extern "C" {
 #endif
 double ElleTriAttributeMax(int index);
 double ElleTriAttributeMin(int index);
-void ElleSetTriAttributeMax(int index, double val);
-void ElleSetTriAttributeMin(int index, double val);
+void ElleSetTriAttributeMax(int index,double val);
+void ElleSetTriAttributeMin(int index,double val);
 int ElleSetTriAttributeRange(int index);
 int ElleMaxTriangles();
 double ElleTriAttribute(int id, int index);
@@ -54,7 +53,7 @@ void ElleInitTriAttributes();
 void ElleRemoveTriAttributes();
 void ElleClearTriAttributes();
 void ElleAllocTriAttributes(int);
-void ElleSetTriAttributeFromNodes(int index, int nindex);
+void ElleSetTriAttributeFromNodes(int index,int nindex);
 #ifdef __cplusplus
 }
 #endif

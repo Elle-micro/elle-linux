@@ -16,15 +16,9 @@ c--------documentation of input output characteristics in setup---------
       real mob
 * variables and constants for increasing the stack size
 
-      integer*4 appllimit                ! address of current application limit
-      integer*4 newlimit                 ! new application limit
-* NOTE: Original code used a non-conforming BOZ literal in a PARAMETER:
-*           parameter (appllimit=z'00000130')
-*       Recent gfortran rejects this usage unless -fallow-invalid-boz is passed.
-*       We convert it to a portable initialization using INT() with a BOZ literal
-*       which is standard-conforming as an argument to INT(). The value 0x130 = 304.
-      integer*4, parameter :: appllimit_param = INT(Z'00000130')
-      parameter (appllimit = appllimit_param)
+      integer*4 appllimit                ! address of current aplication limit 
+      integer*4 newlimit                ! new application limit
+      parameter (appllimit=z'00000130')
 
 
       integer ij,kl

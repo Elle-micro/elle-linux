@@ -18,53 +18,60 @@
 // Headers
 //-----------------------------------------------------------------------------
 
-#include "userdat.h"
 #include "wx/dialog.h"
+#include "userdat.h"
 
 #include "editfile.h"
 
 #include "wx/process.h"
 
-#include "wx/ffile.h"
 #include "wx/numdlg.h"
+#include "wx/ffile.h"
 #include "wx/utils.h"
 
-// #include "myframe.h"
+//#include "myframe.h"
 
-enum process_latticegas { EDITLATTICEGAS };
+enum process_latticegas
+{
+	EDITLATTICEGAS
+};
 
 //-----------------------------------------------------------------------------
 // Class definition: WizardDialog
 //-----------------------------------------------------------------------------
 
-class LatticeGas : public wxDialog {
+class LatticeGas : public wxDialog
+{
 
-public:
-  LatticeGas(wxWindow *parent, process_latticegas prc = EDITLATTICEGAS,
-             usdat *userdata = new(usdat), bool CalledFromNewFile = false);
+	public:
 
-  // Destructor.
-  ~LatticeGas();
+		LatticeGas( wxWindow* parent, process_latticegas prc = EDITLATTICEGAS, usdat* userdata = new(usdat), bool CalledFromNewFile = false );
 
-  usdat *userdat;
-  int proc;
+    // Destructor.
+		~LatticeGas();
 
-private:
-  wxWindow *master;
+		usdat* userdat;
+		int proc;
+    
+	private:
 
-  void CloseLattice();
-  void SetLatticeGas();
+		wxWindow* master;
 
-  bool CalledByNewFile;
+		void CloseLattice();
+		void SetLatticeGas();
 
-private:
-  void Cancel(wxCommandEvent &event);
-  void OnOk(wxCommandEvent &event);
-  void UnCheckOne(wxCommandEvent &event);
-  void UnCheckTwo(wxCommandEvent &event);
+		bool CalledByNewFile;
+    
+	private:
 
-  // Any class wishing to process wxWidgets events must use this macro
-  DECLARE_EVENT_TABLE()
+		void Cancel( wxCommandEvent& event );
+		void OnOk( wxCommandEvent& event );
+		void UnCheckOne(wxCommandEvent& event);
+		void UnCheckTwo(wxCommandEvent& event);
+    
+    // Any class wishing to process wxWidgets events must use this macro
+		DECLARE_EVENT_TABLE()
+
 };
 
 //-----------------------------------------------------------------------------

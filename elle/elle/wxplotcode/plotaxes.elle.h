@@ -1,9 +1,9 @@
 /*****************************************************
  * Copyright: (c) 2009 L. A. Evans
- * File:      $RCSfile: plotaxes.elle.h,v $
- * Revision:  $Revision: 1.6 $
- * Date:      $Date: 2011/09/09 06:04:53 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  * Elle Project Software
  * This program is free software; you can redistribute it and/or
@@ -33,23 +33,23 @@
 /*************************************************************
  *  INCLUDE FILES
  */
-#include "convert.h"
+#include <stdio.h>
+#include <math.h>
 #include "error.h"
 #include "file.h"
 #include "init.h"
-#include "interface.h"
-#include "mat.h"
 #include "runopts.h"
+#include "interface.h"
 #include "unodes.h"
+#include "convert.h"
+#include "mat.h"
 #include "wx/wx.h"
-#include <math.h>
-#include <stdio.h>
 /*************************************************************
  *  CONSTANT DEFINITIONS
  */
-const int REVERSE_ORDER = 0; // index in user data
-const int SAMPLE_STEP = 1;   // index in user data
-const int CAXIS_OUT = 2;     // index in user data
+const int REVERSE_ORDER=0; //index in user data
+const int SAMPLE_STEP=1; //index in user data
+const int CAXIS_OUT=2; //index in user data
 
 /*************************************************************
  *  FUNCTION PROTOTYPES
@@ -60,11 +60,10 @@ void firo(double *a, double *phi, double *rho);
 void pstartps(FILE *);
 void pendps(FILE *);
 void plotonept(double *axis, double rmap[3][3], double *center, double radius,
-               FILE *psout, FILE *polarout);
-void splotps(double *center, double radius, double phi, double rho, FILE *psout,
-             FILE *polarout);
-void startsteronet(double *center, double radius, FILE *psout, char *title,
-                   int ngns);
+                FILE *psout,FILE *polarout);
+void splotps(double *center, double radius, double phi, double rho,
+             FILE *psout, FILE *polarout);
+void startsteronet(double *center, double radius, FILE *psout, char *title, int ngns);
 int FindRowsCols(int *rows, int *numperrow);
 void old_main(); // no longer used
 

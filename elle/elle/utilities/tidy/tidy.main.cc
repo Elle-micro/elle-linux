@@ -7,74 +7,69 @@
 #include <stdlib.h>
 
 #include "error.h"
-#include "init.h"
 #include "parseopts.h"
+#include "init.h"
 #include "runopts.h"
-#include "setup.h"
 #include "stats.h"
-#include "tidy.h"
+#include "setup.h"
 #include "unodes.h"
 #include "update.h"
+#include "tidy.h"
 
-main(int argc, char **argv) {
-  int err = 0;
-  extern int InitThisProcess(void);
-  UserData userdata;
+main(int argc, char **argv)
+{
+    int err=0;
+    extern int InitThisProcess(void);
+    UserData userdata;
 
-  /*
-   * initialise
-   */
-  ElleInit();
+    /*
+     * initialise
+     */
+    ElleInit();
+ 	
+    ElleUserData(userdata);
+	userdata[BnodeSpacing]=0; // Change default bnode spacing
+ 	userdata[Ranorient]=0;   // randomise EULER angles
+ 	userdata[MakeMica]=0;        // set flynns woith this F_ATTRIB_A to MICA else QUARTZ 
+ 	userdata[OrientMica]=0; 	// set MICA axes wrt to grain long axis
+ 	userdata[AddUnodes]=0;   // add unodes to file
+ 	userdata[UnodePattern]=HEX_GRID;   // type of unode distribution 
+ 	userdata[UnodeCells]=0;   // number of subcells for semi random patterns of unodes 
+ 	userdata[Rotation]=0;   // rotation of whole model in degrees  (clockwise is +ve) 
+    
+	ElleSetUserData(userdata);
 
-  ElleUserData(userdata);
-  userdata[BnodeSpacing] = 0; // Change default bnode spacing
-  userdata[Ranorient] = 0;    // randomise EULER angles
-  userdata[MakeMica] =
-      0; // set flynns woith this F_ATTRIB_A to MICA else QUARTZ
-  userdata[OrientMica] = 0;          // set MICA axes wrt to grain long axis
-  userdata[AddUnodes] = 0;           // add unodes to file
-  userdata[UnodePattern] = HEX_GRID; // type of unode distribution
-  userdata[UnodeCells] =
-      0; // number of subcells for semi random patterns of unodes
-  userdata[Rotation] =
-      0; // rotation of whole model in degrees  (clockwise is +ve)
+    /*
+     * set the function to the one in your process file
+     */
+    ElleSetInitFunction(InitThisProcess);
+    ElleSetOptNames("BnodeSpacing","RandomOrient","MakeMica","OrientMica","AddUnodes","UnodePattern","NumSubcells","Rotation","unused");
 
-  ElleSetUserData(userdata);
+    if (err=ParseOptions(argc,argv))
+        OnError("",err);
 
-  /*
-   * set the function to the one in your process file
-   */
-  ElleSetInitFunction(InitThisProcess);
-  ElleSetOptNames("BnodeSpacing", "RandomOrient", "MakeMica", "OrientMica",
-                  "AddUnodes", "UnodePattern", "NumSubcells", "Rotation",
-                  "unused");
+    /*
+     * set the interval for writing to the stats file
+    ES_SetstatsInterval(100);
+     */
 
-  if (err = ParseOptions(argc, argv))
-    OnError("", err);
+    ElleSetStages(1);
+    /*
+     * set the base for naming statistics and elle files
+     */
+    ElleSetSaveFileRoot("tidy");
 
-  /*
-   * set the interval for writing to the stats file
-  ES_SetstatsInterval(100);
-   */
+    /*
+     * set up the X window
+     */
+    if (ElleDisplay()) SetupApp(argc,argv);
 
-  ElleSetStages(1);
-  /*
-   * set the base for naming statistics and elle files
-   */
-  ElleSetSaveFileRoot("tidy");
+    /*
+     * run your initialisation function and start the application
+     */
+    StartApp();
 
-  /*
-   * set up the X window
-   */
-  if (ElleDisplay())
-    SetupApp(argc, argv);
+    CleanUp();
 
-  /*
-   * run your initialisation function and start the application
-   */
-  StartApp();
-
-  CleanUp();
-
-  return (0);
-}
+    return(0);
+} 
