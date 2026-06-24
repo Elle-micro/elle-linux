@@ -33,14 +33,17 @@ mainwinFrame::mainwinFrame( const wxString & title, const wxPoint & pos,
 const wxSize & size, const wxString & arg0 ) :
 		wxFrame( ( wxFrame * ) NULL, 11, title, pos, size )
 {
-	wxString path = wxGetenv("ELLEPATH");
-	if (path.empty())
-		path = arg0.BeforeLast(E_DIR_SEPARATOR);
-	else {
-		path.Append(E_DIR_SEPARATOR);
-		path.Append("binwx");
-	}
+	wxString path = arg0.BeforeLast(E_DIR_SEPARATOR);
 	path.Append(E_DIR_SEPARATOR);
+	if (!wxFileExists(path + "single.txt")) {
+		wxString epath = wxGetenv("ELLEPATH");
+		if (!epath.empty()) {
+			epath.Append(E_DIR_SEPARATOR);
+			epath.Append("binwx");
+			epath.Append(E_DIR_SEPARATOR);
+			path = epath;
+		}
+	}
 	LoadFileMulti( path + "examples.txt");
 	LoadFileSingle(path + "single.txt");
 	wxString description;

@@ -38,7 +38,7 @@ double get_angle( double x, double y )
 
 int InitSetUnodes(), SetUnodes();
 double			**theta, **T, **eps2, **lap_T, **lap_theta, m,val;
-double			**ax,**ay, epsilon, epsilon_prime, anglex, tet, dydx, dxdy, scal;
+double			**ax,**ay, pf_epsilon, pf_epsilon_prime, anglex, tet, dydx, dxdy, scal;
 
 double K 	=	1.8 	;	/* Latent heat */
 double TAU 	=	0.0003 	;	/* PF relaxation time */
@@ -185,13 +185,13 @@ int SetUnodes()
 	
 	/* angular dependence of the interfacial width "espilon" */
 			anglex = get_angle(grad_theta[i][j].x,grad_theta[i][j].y);
-			epsilon = EPS*(1.0 + DELTA*cos(ANISO*(anglex-ANGLE0)));
-			epsilon_prime = -EPS*ANISO*DELTA*sin(ANISO*(anglex-ANGLE0));
+			pf_epsilon = EPS*(1.0 + DELTA*cos(ANISO*(anglex-ANGLE0)));
+			pf_epsilon_prime = -EPS*ANISO*DELTA*sin(ANISO*(anglex-ANGLE0));
 	
 	/* auxiliary quantities appearing in the phase field equation */
-			ay[i][j] = - epsilon*epsilon_prime * grad_theta[i][j].y;
-			ax[i][j] = epsilon*epsilon_prime * grad_theta[i][j].x;
-			eps2[i][j] = epsilon*epsilon;
+			ay[i][j] = - pf_epsilon*pf_epsilon_prime * grad_theta[i][j].y;
+			ax[i][j] = pf_epsilon*pf_epsilon_prime * grad_theta[i][j].x;
+			eps2[i][j] = pf_epsilon*pf_epsilon;
 			}
 		}
 	

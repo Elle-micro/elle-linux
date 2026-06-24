@@ -13,6 +13,9 @@ F77LIB= -lfor
 #if (GccMajorVersion > 3 )
 F77LIB= -lgfortran
 FC=gfortran
+#if (GccMajorVersion >= 10)
+FFLAGS= -std=legacy -fallow-invalid-boz -fallow-argument-mismatch
+#endif
 #else
 F77LIB= -lg2c
 FC=g77

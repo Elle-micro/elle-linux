@@ -1368,6 +1368,7 @@ C
 
       dimension aux55(5,5),aux3333(3,3,3,3)
       DIMENSION IJV(6,2)
+      DIMENSION DUM1(5),DUM2(3,3),DUM3(5,5),DUM4(3,3,3,3)
       DATA ((IJV(N,M),M=1,2),N=1,6)/1,1,2,2,3,3,2,3,1,3,1,2/
 
 C *********   INITIALIZATION BLOCK   ***************************

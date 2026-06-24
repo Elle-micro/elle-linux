@@ -495,8 +495,7 @@ void Experiment::Init()
     cout << "no file open ! "<< endl; // no input file in function call, can be opened from the interface
 
   //UpdateElle();
-	ElleUpdateDisplay();
-  cout << "update display" << endl;
+  //ElleUpdateDisplay(); // removed: called before GL canvas is initialized, causes segfault
 }
 
 
