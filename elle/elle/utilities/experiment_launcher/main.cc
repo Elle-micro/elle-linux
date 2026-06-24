@@ -281,7 +281,7 @@ void mainwinFrame::SetSingle(wxString desc,wxString script)
 		path+=_T("binwx");
 		path+=E_DIR_SEPARATOR;
 	}
-	if (!wxFileExists(script)) script = path+script;
+	if (!wxFileName(script).IsAbsolute()) script = path+script;
 
 	std::string extstr = script.ToStdString();
 	if (extstr.rfind(".htm")!=std::string::npos) //check for "htm"  too
