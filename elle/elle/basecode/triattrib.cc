@@ -261,8 +261,10 @@ void ElleGetTriPtNeighbours(int id, std::vector<int> &ids,
         findNeighbourPts(index,NO_NB,MeshData.tri,&k,nbnodes,bnd);
         for (i=0,v_it=nbnodes.begin();v_it!=nbnodes.end();v_it++,i++) {
             j=(int)MeshData.tri->pointattributelist[(*v_it)];
-            if (MeshData.tri->pointmarkerlist[(*v_it)])
+            if (MeshData.tri->pointmarkerlist[(*v_it)]) {
+                j = -j;  /* bnode IDs stored negated in triangulation */
                 ElleNodePlotXY(j,&nbxy,&xy);
+            }
             else {
                 ElleGetUnodePosition(j,&nbxy);
                 ElleCoordsPlotXY(&nbxy,&xy);
@@ -276,9 +278,9 @@ void ElleGetTriPtNeighbours(int id, std::vector<int> &ids,
         }
         for (it=ordered_list.begin(); it!=ordered_list.end(); it++) {
             j=(int)MeshData.tri->pointattributelist[(*it).first];
-            ids.push_back(j);
             if (MeshData.tri->pointmarkerlist[(*it).first]==0) k=0;
-            else k=1;
+            else { k=1; j = -j; }  /* bnode IDs stored negated */
+            ids.push_back(j);
             on_bnd.push_back(k);
         }
     }
@@ -304,7 +306,7 @@ void ElleGetNodeTriPtNeighbours(int id, std::vector<int> &ids,
         OnError("ElleGetTriPtNeighbours - no triangulation data",0);
     numpts = MeshData.tri->numberofpoints;
     for (i=0, index=NO_NB;i<numpts && index==NO_NB;i++)
-        if ((int)MeshData.tri->pointattributelist[i]==id &&
+        if ((int)MeshData.tri->pointattributelist[i]==-id &&
                  MeshData.tri->pointmarkerlist[i]!=0)
             index = i;
 
@@ -320,6 +322,7 @@ void ElleGetNodeTriPtNeighbours(int id, std::vector<int> &ids,
         for (i=0,v_it=nbnodes.begin();v_it!=nbnodes.end();v_it++,i++) {
             j=(int)MeshData.tri->pointattributelist[(*v_it)];
             if (MeshData.tri->pointmarkerlist[(*v_it)]) {
+                j = -j;  /* bnode IDs stored negated in triangulation */
                 ElleNodePlotXY(j,&nbxy,&xy);
             }
             else {
@@ -334,21 +337,22 @@ void ElleGetNodeTriPtNeighbours(int id, std::vector<int> &ids,
             ordered_list.insert(it,p);
         }
         it=ordered_list.begin();
+        /* nb_id is a bnode, stored as -nb_id in attribute list */
         while (it!=ordered_list.end() &&
-          MeshData.tri->pointattributelist[(*it).first]!=nb_id) it++;
+          MeshData.tri->pointattributelist[(*it).first]!=(-(double)nb_id)) it++;
         start = it;
         for (it=start; it!=ordered_list.end(); it++) {
             j=(int)MeshData.tri->pointattributelist[(*it).first];
-            ids.push_back(j);
             if (MeshData.tri->pointmarkerlist[(*it).first]==0) k=0;
-            else k=1;
+            else { k=1; j = -j; }  /* bnode IDs stored negated */
+            ids.push_back(j);
             on_bnd.push_back(k);
         }
         for (it=ordered_list.begin(); it!=start; it++) {
             j=(int)MeshData.tri->pointattributelist[(*it).first];
-            ids.push_back(j);
             if (MeshData.tri->pointmarkerlist[(*it).first]==0) k=0;
-            else k=1;
+            else { k=1; j = -j; }  /* bnode IDs stored negated */
+            ids.push_back(j);
             on_bnd.push_back(k);
         }
     }
