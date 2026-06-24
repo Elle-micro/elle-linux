@@ -14,7 +14,7 @@
 #include "setup.h"
 #include "merge.h"
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     extern int InitThisProcess(void);

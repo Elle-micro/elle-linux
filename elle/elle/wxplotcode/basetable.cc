@@ -339,7 +339,7 @@ void TableData::OnSaveData( wxCommandEvent & event )
     for ( col = 0; col < tgrid->GetNumberCols(); col++ )
     {
       val = tgrid->GetColLabelValue( col );
-      fprintf( fp, "%s", val.c_str() );
+      fprintf( fp, "%s", (const char *)val.mb_str() );
       fprintf( fp, "," );
     }
     fprintf( fp, "\n" );
@@ -348,7 +348,7 @@ void TableData::OnSaveData( wxCommandEvent & event )
       for ( col = 0; col < tgrid->GetNumberCols(); col++ )
       {
         val = tgrid->GetCellValue( row, col );
-        fprintf( fp, "%s", val.c_str() );
+        fprintf( fp, "%s", (const char *)val.mb_str() );
         fprintf( fp, "," );
       }
       fprintf( fp, "\n" );
@@ -369,7 +369,7 @@ void TableData::OnSaveSelected( wxCommandEvent & event )
     for ( col = 0; col < tgrid->GetNumberCols(); col++ )
     {
       val = tgrid->GetColLabelValue( col );
-      fprintf( fp, "%s", val.c_str() );
+      fprintf( fp, "%s", (const char *)val.mb_str() );
       fprintf( fp, "," );
     }
     fprintf( fp, "\n" );
@@ -380,7 +380,7 @@ void TableData::OnSaveSelected( wxCommandEvent & event )
         for ( col = 0; col < tgrid->GetNumberCols(); col++ )
         {
           val = tgrid->GetCellValue( row, col );
-          fprintf( fp, "%s", val.c_str() );
+          fprintf( fp, "%s", (const char *)val.mb_str() );
           fprintf( fp, "," );
         }
         fprintf( fp, "\n" );

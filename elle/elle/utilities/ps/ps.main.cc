@@ -15,7 +15,7 @@
 #include "setup.h"
 #include "display.h"
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     char *infile;

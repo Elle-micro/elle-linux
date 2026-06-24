@@ -546,9 +546,9 @@ int cppFile::SaveZIPDSettings( gzFile out )
     gzprintf( out, "UNodesRangeFlag: FALSE\n" );
 
   name = doptions->GetLoadFileDir();
-  gzprintf( out, "LoadFileDir: %s\n", name.c_str() );
+  gzprintf( out, "LoadFileDir: %s\n", (const char *)name.mb_str() );
   name = doptions->GetSaveFileDir();
-  gzprintf( out, "SaveFileDir: %s\n", name.c_str() );
+  gzprintf( out, "SaveFileDir: %s\n", (const char *)name.mb_str() );
   return ( E_OK );
 }
 

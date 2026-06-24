@@ -12,6 +12,7 @@
 #include "string_utils.h"
 #include "init.h"
 #include "bflynns.h"
+#include "error.h"
 #include "runopts.h"
 #include "setup.h"
 
@@ -25,6 +26,8 @@ static const char rcsid[] =
 extern "C" {
 #endif
 extern void ElleInitTriAttributes();
+extern void ElleClearTriAttributes();
+extern void ElleInitRandom(unsigned long int seed);
 extern void ES_Init_Stats();
 extern void ElleInitNodeArray(void);
 extern void Init_Data();

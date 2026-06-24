@@ -14,7 +14,7 @@
 #include "file.h"
 #include "expand.h"
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;

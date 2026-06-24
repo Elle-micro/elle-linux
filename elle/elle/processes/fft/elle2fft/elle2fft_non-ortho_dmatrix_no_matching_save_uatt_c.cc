@@ -56,7 +56,7 @@ double		**pts=0;		/* memory array */
 void nrerror(char error_text[]);
 
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;

@@ -22,7 +22,7 @@ extern const int DIFFUSION_ONLY = 3;
 extern const int TEMP_INCR = 4;
 extern const double KAPPA_DFLT = 0.3090528;
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;

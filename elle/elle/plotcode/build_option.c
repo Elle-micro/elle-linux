@@ -151,7 +151,7 @@ MenuItem drawing_shapes[] = {
     NULL,
 };
 
-main(argc, argv)
+int main(argc, argv)
 int argc;
 char *argv[];
 {

@@ -37,6 +37,16 @@ F77LIB= -lf2c
 F77LIB= -lg2c
 #endif
 
+#ifdef __DARWIN__
+F77LIB= -lgfortran
+FC=gfortran
+FCFLAGS += -fallow-argument-mismatch -fallow-invalid-boz
+FFLAGS += -fallow-argument-mismatch -fallow-invalid-boz
+GFORTLIBDIR = $(shell gfortran --print-file-name=libgfortran.a | xargs dirname | xargs realpath)
+LOCAL_LDFLAGS += -L$(GFORTLIBDIR)
+CCOPTIONS = -Wall -Wpointer-arith
+#endif
+
 #ifdef __WIN32__
 F77LIB= -lg2c
 FC=g77

@@ -47,7 +47,7 @@ int InitThisProcess(), Unode2Flynn();
 
 const double ELLE_EPS=1.5e-6;
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;

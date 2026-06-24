@@ -68,7 +68,7 @@ int FindSQParams( int *numperrow, double *dx, double *dy, Coords *origin);
 int SetUnodeAttributeFromNbFlynn(int unum,int flynnid,int attr,
                                 vector<int> &rlist);
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData userdata;
