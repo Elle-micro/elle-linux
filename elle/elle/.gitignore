@@ -1,9 +1,9 @@
 # Build output directories
-bin/
-binb/
-binwx/
-binx/
-lib/
+bin/*
+binb/*
+binwx/*
+binx/*
+lib/*
 
 # imake-generated Makefiles
 Makefile
