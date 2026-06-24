@@ -2022,7 +2022,7 @@ void Phase_Lattice::Dissolution_Stylos(int dump, int stress, int shrink)
         pois = 0.3333333;	// fixed poisson number
 
         temp = 200;         	// for quartz dissolution
-        rate_constant = 0.0000001;    // rate constant for quartz at 200ÁC
+        rate_constant = 0.0000001;    // rate constant for quartz at 200ï¿½C
 
         runParticle = &refParticle;     // for particle loops
 
@@ -2593,7 +2593,7 @@ void Phase_Lattice::Dissolution_StylosII(int dump, int stress, int use_grains, i
         pois = 0.3333333;
 
         temp = 200;         	// for quartz dissolution
-        rate_constant = 0.0000001;    // rate constant for quartz at 200¡C
+        rate_constant = 0.0000001;    // rate constant for quartz at 200ï¿½C
 		
 		count = 0;
 		meansurfstress = 0;
@@ -4688,11 +4688,11 @@ void Phase_Lattice::DumpYStressRow(double y_box_min,double y_box_max, double x_b
 
 void Phase_Lattice::SetFluidLatticeGasRandom(float percent)
 {
-	int i, j; 
+	int i, j;
 	float ran_nb;
-	
+
 	srand(std::time(0));
-	
+	runParticle = &refParticle;
 	for (i = 0; i < numParticles; i++)
 	{
 		
@@ -4800,11 +4800,11 @@ void Phase_Lattice::SetWallsLatticeGas(int grain)
 
 void Phase_Lattice::SetFluidLatticeGasRandomGrain(float percent,int nbr)
 {
-	int i, j; 
+	int i, j;
 	float ran_nb;
-	
+
 	srand(std::time(0));
-	
+	runParticle = &refParticle;
 	for (i = 0; i < numParticles; i++)
 	{
 		if (runParticle->grain == nbr)
