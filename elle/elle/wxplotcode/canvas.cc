@@ -456,8 +456,13 @@ void Canvas::IMDrawUNodes( int unattrib )
                     if (value<min) value = min; //LE
                     if (value>max) value = max; //LE
 
-                    value = ( value - min ) / ( ( max - min ) / 100 );
+                    if ( max == min )
+                        coln = 0;
+                    else
+                        value = ( value - min ) / ( ( max - min ) / 100 );
                     coln = ( int )( value * 2.55 );
+                    if ( coln < 0 ) coln = 0;
+                    if ( coln > 263 ) coln = 263;
                     dset->CmapGetColor( coln, & r, & g, & b, & set
                                           );
                     pen.SetColour(r,g,b);

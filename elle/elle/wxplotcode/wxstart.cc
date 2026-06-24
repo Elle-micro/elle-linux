@@ -72,7 +72,6 @@ bool Showelle::OnInit()
         mframe->GetMenuBar()->EnableTop( 2, true );
         //LE should we set user scale based on unticell dimensions??
         EllePlotRegions( 0 );
-        //LE mframe->panel->Refresh(true,NULL);
     }
     Log( 0, "Done initialisation" );
     return true;
