@@ -70,7 +70,7 @@ private:
 	void SetMulti(wxString desc,wxString script);
 	int FindPosMulti(wxString name);
         int FindPosSingle(wxString name);
-	wxString escript,escript2;
+	wxString escript,escript2,ellepath;
 	wxListBox *lb,*lbd;
 	wxTextCtrl *text,*textd;
 	vector<Data> tfile,dfile;

@@ -2,6 +2,7 @@
 #include "main.h"
 #include <string>
 #include "file_utils.h"
+#include "wx/filename.h"
 
 BEGIN_EVENT_TABLE( mainwinFrame,wxFrame )
 EVT_MENU( Menu_File_Quit, mainwinFrame::OnQuit )
@@ -33,17 +34,22 @@ mainwinFrame::mainwinFrame( const wxString & title, const wxPoint & pos,
 const wxSize & size, const wxString & arg0 ) :
 		wxFrame( ( wxFrame * ) NULL, 11, title, pos, size )
 {
-	wxString path = arg0.BeforeLast(E_DIR_SEPARATOR);
-	path.Append(E_DIR_SEPARATOR);
-	if (!wxFileExists(path + "single.txt")) {
-		wxString epath = wxGetenv("ELLEPATH");
-		if (!epath.empty()) {
-			epath.Append(E_DIR_SEPARATOR);
-			epath.Append("binwx");
-			epath.Append(E_DIR_SEPARATOR);
-			path = epath;
-		}
+	// Prefer ELLEPATH env var; fall back to deriving from the launcher binary path
+	ellepath = wxGetenv("ELLEPATH");
+	if (ellepath.empty()) {
+		wxFileName launcherPath(arg0);
+		launcherPath.MakeAbsolute();
+		ellepath = launcherPath.GetPath() + wxString(E_DIR_SEPARATOR) + _T("..");
 	}
+	wxString path;
+	if (ellepath.empty())
+		path = arg0.BeforeLast(E_DIR_SEPARATOR);
+	else {
+		path = ellepath;
+		path.Append(E_DIR_SEPARATOR);
+		path.Append(_T("binwx"));
+	}
+	path.Append(E_DIR_SEPARATOR);
 	LoadFileMulti( path + "examples.txt");
 	LoadFileSingle(path + "single.txt");
 	wxString description;
@@ -209,13 +215,13 @@ void mainwinFrame::SetMulti(wxString desc,wxString script)
 	script.Append(E_SCRIPT_EXT);
 	if (!wxFileExists(script))
 	{
-	  wxString path = wxGetenv("ELLEPATH");
-	  if (!path.empty())
+	  if (!ellepath.empty())
 	  {
+		wxString path = ellepath;
 		path+=E_DIR_SEPARATOR;
-		path+="..";
+		path+=_T("..");
 		path+=E_DIR_SEPARATOR;
-		path+="experiments";
+		path+=_T("experiments");
 		path+=E_DIR_SEPARATOR;
 		script = path+script;
 	  }
@@ -236,6 +242,19 @@ void mainwinFrame::SetMulti(wxString desc,wxString script)
 	script.Prepend(" /D"+workdir+" /WAIT ");
 	script.Prepend("cmd /C start \""+title+'"');
  */
+#elif defined(__WXMAC__)
+	{
+		wxString macscript(_T("osascript -e 'tell application \"Terminal\" to do script \""));
+		if (!ellepath.empty()) {
+			macscript += _T("export ELLEPATH=");
+			macscript += ellepath;
+			macscript += _T("; ");
+		}
+		macscript += _T("/bin/sh ");
+		macscript += script;
+		macscript += _T("\"'");
+		script = macscript;
+	}
 #else
 	script.Prepend( _T("xterm -e "));
 #endif
@@ -254,11 +273,12 @@ void mainwinFrame::SetSingle(wxString desc,wxString script)
 	wxString E_SCRIPT_EXT = "";
 	script.Replace("\\","/");
 #endif
-	wxString path = wxGetenv("ELLEPATH");
-	if (!path.empty())
+	wxString path;
+	if (!ellepath.empty())
 	{
+		path = ellepath;
 		path+=E_DIR_SEPARATOR;
-		path+="binwx";
+		path+=_T("binwx");
 		path+=E_DIR_SEPARATOR;
 	}
 	if (!wxFileExists(script)) script = path+script;
