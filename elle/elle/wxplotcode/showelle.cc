@@ -624,7 +624,7 @@ void ShowelleFrame::OnSaveRun( wxCommandEvent & event )
                     savefilename=f.Item(n).BeforeLast('.');
                     savefilename.Append(".png");
                     panel->OnSaveSingle( savefilename );
-                    fprintf(fp,"%s,\\\n",(savefilename.AfterLast(E_DIR_SEPARATOR)).c_str());
+                    fprintf(fp,"%s,\\\n",(const char *)(savefilename.AfterLast(E_DIR_SEPARATOR)).mb_str());
                 }
                 fprintf(fp,"\" -mf type=png -ovc lavc -lavcopts vcodec=wmv2 -oac copy -o movie.wmf");
                 fclose(fp);

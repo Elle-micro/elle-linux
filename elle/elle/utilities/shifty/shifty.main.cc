@@ -17,7 +17,7 @@
 #define EL_FILENAME_MAX 255
 char InFile[EL_FILENAME_MAX+1];
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     ElleRunFunc init;

@@ -14,7 +14,7 @@
 #include "init.h"
 #include "setup.h"
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     extern int InitDiffusion(),RunDiffusion(),CleanDiffusion();

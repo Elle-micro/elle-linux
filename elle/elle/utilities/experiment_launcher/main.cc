@@ -233,6 +233,20 @@ void mainwinFrame::SetMulti(wxString desc,wxString script)
 	script.Prepend(" /D"+workdir+" /WAIT ");
 	script.Prepend("cmd /C start \""+title+'"');
  */
+#elif defined(__WXMAC__)
+	{
+		wxString ellepath = wxGetenv("ELLEPATH");
+		wxString macscript(_T("osascript -e 'tell application \"Terminal\" to do script \""));
+		if (!ellepath.empty()) {
+			macscript += _T("export ELLEPATH=");
+			macscript += ellepath;
+			macscript += _T("; ");
+		}
+		macscript += _T("/bin/sh ");
+		macscript += script;
+		macscript += _T("\"'");
+		script = macscript;
+	}
 #else
 	script.Prepend( _T("xterm -e "));
 #endif

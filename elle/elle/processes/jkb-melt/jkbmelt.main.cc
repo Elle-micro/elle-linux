@@ -6,7 +6,7 @@
  * otherwise it will be adjusted to keep the melt fraction stable.
  * 
 * if melt increment is negative, the melt fraction decreases.*/
-main( int argc, char * * argv )
+int main( int argc, char * * argv )
 {
   int err = 0;
   char buf[4096];

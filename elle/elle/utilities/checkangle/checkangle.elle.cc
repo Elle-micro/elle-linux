@@ -39,7 +39,7 @@ int UpdateAttributes( vector<int> &reassigned, set_int *enrichlist,
 /*
  *  main
  */
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     extern int InitThisProcess(void);

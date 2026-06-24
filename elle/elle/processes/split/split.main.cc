@@ -21,7 +21,7 @@
 
 float TotalTime;
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     ElleRunFunc init;

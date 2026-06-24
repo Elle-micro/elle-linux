@@ -4,7 +4,11 @@
 SRCS=   PPC15E-9.02.FOR
 OBJS=   PPC15E-9.02.o
 
+#ifdef __DARWIN__
+FCFLAGS = -fallow-argument-mismatch -fallow-invalid-boz
+#else
 FCFLAGS = -Wno-argument-mismatch
+#endif
 
 THISAPP=FFT_vs256
 

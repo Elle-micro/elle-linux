@@ -130,6 +130,23 @@ then
 fi
 
 #
+# macOS-specific prerequisite checks
+#
+if [ "$(uname -s)" = "Darwin" ]
+then
+    if ! command -v gfortran >/dev/null 2>&1
+    then
+        echo "gfortran not found - install with: brew install gcc"
+        exit 1
+    fi
+    if ! [ -f /opt/homebrew/include/gsl/gsl_rng.h ] && ! pkg-config --exists gsl 2>/dev/null
+    then
+        echo "GSL not found - install with: brew install gsl"
+        exit 1
+    fi
+fi
+
+#
 # build the makefiles
 #
 xmkmf
@@ -141,6 +158,38 @@ make Makefiles
 if [ $? != 0 ]
 then
   exit 1
+fi
+
+#
+# macOS-specific build: install_base skips plotcode (PS/X11 Fortran code not
+# needed for wx or batch builds and has macOS-incompatible implicit declarations)
+#
+if [ "$(uname -s)" = "Darwin" ]
+then
+    make -C basecode install_base || exit 1
+    make -C utilities/matrix install_base || exit 1
+    make -C utilities/gpc install_base || exit 1
+    if [  $BATCH -eq 1 ]
+    then
+        make install_b
+    fi
+    if [  $DSPWX -eq 1 ]
+    then
+        make install_wx
+        if [ $? != 0 ]; then exit 1; fi
+    fi
+    if [  $DSPX -eq 1 ]
+    then
+        make install_x
+        if [ $? != 0 ]; then exit 1; fi
+    fi
+    if [ "$SETBIN" -a -d $SETBIN ]
+    then
+        if [ -f bin ]; then /bin/rm -f bin; fi
+        ln -s $SETBIN bin
+    fi
+    make clean
+    exit 0
 fi
 
 #

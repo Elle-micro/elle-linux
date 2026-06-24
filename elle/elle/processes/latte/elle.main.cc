@@ -17,7 +17,7 @@
 Experiment *MyExperiment;
 
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData userdata;

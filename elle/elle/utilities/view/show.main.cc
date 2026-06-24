@@ -13,7 +13,7 @@
 #include "setup.h"
 #include "plotaxes.h"
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;

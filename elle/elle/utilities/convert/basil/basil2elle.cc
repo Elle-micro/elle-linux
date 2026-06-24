@@ -113,7 +113,7 @@ int ParseOptions(int argc,char **argv,char **in,char **out,int *record);
 #endif
 
 char *Infile, *Outfile;
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     char Input_str[1024], *cptr, buf[81];
     bool f2u = false;

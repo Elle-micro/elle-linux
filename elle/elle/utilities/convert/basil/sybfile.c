@@ -21,6 +21,13 @@
 #include "error.h"
 #include "arrays.h"
 
+int read_data_blk(FILE *fp, char *string_vars, int *int_vars,
+                  float *fl_vars, int **arraysi, float **arraysf);
+int skip_data_blk(FILE *fp);
+int ReadIntArray(int cnt, int **addr, FILE *fp, unsigned char byte_swap);
+int ReadFlArray(int cnt, float **addr, FILE *fp, unsigned char byte_swap);
+extern void swapco_(float *ex, float *ey, float *uvp, int *nup, int *jrot, int *jvelrot);
+
 /*
  * byte swapping between little_endian and big_endian
  * 0->3, 1->2, 2->1, 3->0

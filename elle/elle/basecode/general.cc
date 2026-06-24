@@ -491,7 +491,7 @@ int intersection_pt( double x1, double y1,   /* First line segment */
 
 /* A main program to test the function intersection_pt
 
-main()
+int main()
 {
     double x1, x2, x3, x4, y1, y2, y3, y4;
     double x, y;
@@ -657,7 +657,7 @@ int angle0(double x,double y,double x1,double y1,double x2,double y2,
 
 /* A main program to test the function angle
 
-main()
+int main()
 {
     float x1, x2, y1, y2;
     float x, y;
@@ -892,7 +892,7 @@ int PointOnSegment(float x1, float y1,
 }
 /* A main program to test the pntonline
 
-main()
+int main()
 {
     int res;
     float x1, x2, y1, y2;

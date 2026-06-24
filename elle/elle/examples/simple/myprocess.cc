@@ -32,7 +32,7 @@
 		
  */
  
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	InitElle( argc, argv, "trial", SIMPLE_UNODE);
 } 

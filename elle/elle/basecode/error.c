@@ -25,6 +25,8 @@ extern "C" {
 void append_error_message(const char *message,int err_num);
 void OptsSyntax(int argc,char **argv);
 void ElleRemoveTriAttributes();
+void ElleRemoveArrays(void);
+void ElleRemoveEnergyLUT(void);
 /*extern int DisplayElleErrorMsg(char *msg,int err_num);*/
 #ifdef __cplusplus
 }

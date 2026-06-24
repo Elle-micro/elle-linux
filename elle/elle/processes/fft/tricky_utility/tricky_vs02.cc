@@ -32,7 +32,7 @@ using std::vector;
 int Input_tex(), Init_input();
 void check_dist();
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;

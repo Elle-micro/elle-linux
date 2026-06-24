@@ -31,7 +31,7 @@ using std::cin;
 int Input_tex(), Init_input();
 int temp_file();
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;

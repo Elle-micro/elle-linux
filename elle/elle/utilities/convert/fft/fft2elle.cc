@@ -44,7 +44,7 @@ void check_error();
 
 int SetUnodeAttributesFromFile2(const char *fname);
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int err=0;
     UserData udata;
