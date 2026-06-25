@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 
 #ifdef __GNUG__
-#pragma implementation "lattestart.h"
+ #pragma implementation "lattestart.h"
 #endif
 
 //-----------------------------------------------------------------------------
@@ -14,13 +14,13 @@
 #include "wx/wxprec.h"
 
 #ifdef __BORLANDC__
-#pragma hdrstop
+ #pragma hdrstop
 #endif
 
 // For all others, include the necessary headers (this file is usually all you
 // need because it includes almost all "standard" wxWidgets headers)
 #ifndef WX_PRECOMP
-#include "wx/wx.h"
+ #include "wx/wx.h"
 #endif
 
 #include <locale.h>
@@ -32,15 +32,14 @@
 #include "lattestart.h"
 
 //-----------------------------------------------------------------------------
-// Remaining headers: Needed wx headers, then wx/contrib headers, then
-// application headers
+// Remaining headers: Needed wx headers, then wx/contrib headers, then application headers
 //-----------------------------------------------------------------------------
 
-#include "wx/image.h" // wxImage
+#include "wx/image.h"               // wxImage
 
 //-----------------------------------------------------------------------------
 
-#include "wx/xrc/xmlres.h" // XRC XML resouces
+#include "wx/xrc/xmlres.h"          // XRC XML resouces
 
 //-----------------------------------------------------------------------------
 
@@ -48,59 +47,64 @@
 
 #include "wx/msgdlg.h"
 
-IMPLEMENT_APP(MyApp)
+IMPLEMENT_APP( MyApp )
 
 //-----------------------------------------------------------------------------
 // Public methods
 //-----------------------------------------------------------------------------
 
 // 'Main program' equivalent: the program execution "starts" here
-bool MyApp::OnInit() {
+bool MyApp::OnInit()
+{
 
-  wxString lattestartxrcloc;
+	wxString lattestartxrcloc;
 
-  setlocale(LC_ALL, "en_US");
+	setlocale( LC_ALL, "en_US" );
 
-  wxImage::AddHandler(new wxXPMHandler);
+	wxImage::AddHandler( new wxXPMHandler );
 
-  wxXmlResource::Get()->InitAllHandlers();
+	wxXmlResource::Get() ->InitAllHandlers();
 
-  wxString loca = argv[0];
+	wxString loca = argv[0];
 
-  if (wxIsAbsolutePath(loca))
-    wxSetWorkingDirectory(wxPathOnly(loca));
-  else {
-    loca.Prepend(wxGetCwd());
-    wxSetWorkingDirectory(wxPathOnly(loca));
-  }
+	if (wxIsAbsolutePath(loca))
+		wxSetWorkingDirectory(wxPathOnly(loca));
+	else
+	{
+		loca.Prepend(wxGetCwd());
+		wxSetWorkingDirectory(wxPathOnly(loca));
+	}
 
-  lattestartxrcloc = loca + wxT(".xrc");
-  // cout << lattestartxrcloc.ToAscii() << endl;
+	lattestartxrcloc = loca+wxT(".xrc");
+	//cout << lattestartxrcloc.ToAscii() << endl;
 
-  if (!wxFileExists(lattestartxrcloc)) {
+	if ( !wxFileExists(lattestartxrcloc) )
+	{
 
-    wxPathList loc;
-    loc.AddEnvList(wxT("PATH"));
-    lattestartxrcloc = loc.FindAbsoluteValidPath(wxT("lattestart.xrc"));
+		wxPathList loc;
+		loc.AddEnvList( wxT( "PATH" ) );
+		lattestartxrcloc = loc.FindAbsoluteValidPath( wxT( "lattestart.xrc" ) );
 
-    if (lattestartxrcloc == wxEmptyString) {
-      cout << "lattestart.xrc not found!" << endl;
-      exit(1);
-    }
-  }
+		if ( lattestartxrcloc == wxEmptyString )
+		{
+			cout << "lattestart.xrc not found!" << endl;
+			exit(1);
+		}
+	}
 
-  // dialogs
-  wxXmlResource::Get()->Load(lattestartxrcloc);
-  // frame
-  // wxXmlResource::Get()->Load(wxT("frame.xrc"));
+	//dialogs
+	wxXmlResource::Get() ->Load( lattestartxrcloc );
+	//frame
+	//wxXmlResource::Get()->Load(wxT("frame.xrc"));
 
-  wxToolTip::Enable(1);
+	wxToolTip::Enable( 1 );
 
-  MyFrame *frame = new MyFrame();
+	MyFrame *frame = new MyFrame();
 
-  // Show the frame.
-  frame->Show(true);
+	// Show the frame.
+	frame->Show( true );
 
-  // Return true to tell program to continue (false would terminate).
-  return true;
+	// Return true to tell program to continue (false would terminate).
+	return true;
 }
+

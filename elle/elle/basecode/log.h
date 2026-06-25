@@ -1,15 +1,15 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: log.h,v $
- * Revision:  $Revision: 1.2 $
- * Date:      $Date: 2012/08/16 06:42:34 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 /*!
-        \file		log.h
-        \brief		header for Log fns
-        \par		Description:
+	\file		log.h
+	\brief		header for Log fns
+	\par		Description:
                 Log messages are written to a file
                 which can be displayed if running a GUI
 */
@@ -21,7 +21,7 @@
 /*************************************************************
  *	CONSTANT DEFINITIONS
  */
-#define E_LOGBUFSIZ 4096
+#define E_LOGBUFSIZ  4096
 /*************************************************************
  *	MACRO DEFINITIONS
  */
@@ -51,4 +51,4 @@ void Log(int loglevel, const char *msg);
 #ifdef __cplusplus
 }
 #endif
-#endif // _E_log_h
+#endif	// _E_log_h

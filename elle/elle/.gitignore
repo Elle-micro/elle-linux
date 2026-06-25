@@ -1,0 +1,16 @@
+# Build output directories
+bin/*
+binb/*
+binwx/*
+binx/*
+lib/*
+
+# imake-generated Makefiles
+Makefile
+
+# Object files and static libraries
+*.o
+*.a
+
+# macOS metadata
+.DS_Store

@@ -18,48 +18,55 @@
 // Headers
 //-----------------------------------------------------------------------------
 
-#include "userdat.h"
 #include "wx/dialog.h"
+#include "userdat.h"
 
-// #include "myframe.h"
+//#include "myframe.h"
 
-enum process_name { EDITNAME };
+enum process_name
+{
+    EDITNAME
+};
 
 //-----------------------------------------------------------------------------
 // Class definition: WizardDialog
 //-----------------------------------------------------------------------------
 
-class WizardDialogName : public wxDialog {
+class WizardDialogName : public wxDialog
+{
 
 public:
-  WizardDialogName(wxWindow *parent, process_name prc = EDITNAME,
-                   usdat *userdata = new(usdat));
 
-  // Destructor.
-  ~WizardDialogName();
+   WizardDialogName( wxWindow* parent, process_name prc = EDITNAME, usdat* userdata = new(usdat) );
 
-  usdat *userdat;
-  int proc;
+    // Destructor.
+	~WizardDialogName();
 
+    usdat* userdat;
+    int proc;
+    
 private:
-  wxWindow *master;
 
-  void CloseEditName();
-  void SetEditName();
+   wxWindow* master;
 
+   void CloseEditName();
+	void SetEditName();
+    
 private:
-  void Cancel(wxCommandEvent &event);
-  void OnOk(wxCommandEvent &event);
 
-  // void OnUpdateCheckboxGauss(  wxUpdateUIEvent &event );
-  // void OnUpdateCheckboxLin(  wxUpdateUIEvent &event );
+    void Cancel( wxCommandEvent& event );
+    void OnOk( wxCommandEvent& event );
+    
+    //void OnUpdateCheckboxGauss(  wxUpdateUIEvent &event );
+    //void OnUpdateCheckboxLin(  wxUpdateUIEvent &event );
+    
+    // Any class wishing to process wxWidgets events must use this macro
+    DECLARE_EVENT_TABLE()
 
-  // Any class wishing to process wxWidgets events must use this macro
-  DECLARE_EVENT_TABLE()
 };
 
 //-----------------------------------------------------------------------------
 // End single inclusion of this .h file condition
 //-----------------------------------------------------------------------------
 
-#endif
+#endif 

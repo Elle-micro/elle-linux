@@ -7,7 +7,7 @@ extern "C" {
 #endif
 void CnvtInitBoundaryFlagArray();
 void CnvtInitCheckFlagArray();
-void CnvtSetBoundaryFlag(int index, int val);
+void CnvtSetBoundaryFlag(int index,int val);
 void CnvtSetCheckFlag(int index);
 void CnvtClearBoundaryFlag(int index);
 void CnvtClearCheckFlag(int node);

@@ -1368,6 +1368,7 @@ C
 
       dimension aux55(5,5),aux3333(3,3,3,3)
       DIMENSION IJV(6,2)
+      DIMENSION DUM1(5),DUM2(3,3),DUM3(5,5),DUM4(3,3,3,3)
       DATA ((IJV(N,M),M=1,2),N=1,6)/1,1,2,2,3,3,2,3,1,3,1,2/
 
 C *********   INITIALIZATION BLOCK   ***************************
@@ -2928,7 +2929,7 @@ C
 C
 COLD      DIMENSION v1(nrows,ncols),v2(nrows,ncols)
 COLD      DIMENSION v_dif(6,6),v_ave(6,6)
-      DIMENSION v1(36),v2(36)
+      DIMENSION v1(*),v2(*)
       DIMENSION v_dif(36),v_ave(36)
 C
       do i=1,nrows*ncols
@@ -2951,7 +2952,7 @@ C
       FUNCTION tnorm(v,nrows,ncols)
 C
 COLD      DIMENSION v(nrows,ncols)
-      DIMENSION v(36)
+      DIMENSION v(*)
 C
       tnorm=0.d0
       do i=1,nrows*ncols

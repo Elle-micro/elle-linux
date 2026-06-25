@@ -1,9 +1,9 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: poly.h,v $
- * Revision:  $Revision: 1.3 $
- * Date:      $Date: 2005/07/12 07:16:25 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef _E_poly_h

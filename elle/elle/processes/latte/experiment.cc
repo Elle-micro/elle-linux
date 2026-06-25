@@ -1,12 +1,11 @@
-
 /******************************************************
- * New Experiment Class for Elle/Latte
+ * New Experiment Class for Elle/Latte 
  *
  * works now mainly with the lattice spring code
  *
  * Daniel and Till 2005
- *
- * Latte Version 2.0
+ * 
+ * Latte Version 2.0 
  * koehn_uni-mainz.de
  ******************************************************/
 
@@ -14,37 +13,36 @@
 // system headers
 // ------------------------------------
 
-#include <algorithm>
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
 #include <iostream>
-#include <locale.h>
 #include <vector>
-
+#include <fstream>
+#include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <locale.h>
 // ------------------------------------
 // elle headers
 // ------------------------------------
 
 #include "experiment.h"
-#include "unodes.h" // include unode funct. plus undodesP.h
+#include "unodes.h"		// include unode funct. plus undodesP.h
 // for c++
-#include "attrib.h" // enth�lt struct coord (hier: xy)
-#include "attribarray.h"
+#include "attrib.h"		// enth�lt struct coord (hier: xy)
 #include "attribute.h"
-#include "check.h"
-#include "convert.h"
-#include "display.h"
-#include "error.h"
-#include "file.h"
-#include "general.h"
-#include "interface.h"
+#include "attribarray.h"
 #include "nodes.h"
 #include "nodesP.h"
-#include "polygon.h"
+#include "interface.h"
+#include "file.h"
+#include "error.h"
+#include "general.h"
 #include "runopts.h"
+#include "polygon.h"
 #include "tripoly.h"
+#include "display.h"
+#include "check.h"
+#include "convert.h"
 #include "update.h"
 
 // have to define these in the new Elle version
@@ -57,7 +55,7 @@ using std::vector;
 /*******************************************************
  * Dont really construct anything here at the moment
  *
- * The experiment class is directly called from the
+ * The experiment class is directly called from the 
  * Elle main function
  ********************************************************/
 
@@ -71,40 +69,34 @@ Experiment::Experiment()
 //
 // -----------------------------------------------------------------------------
 
+
 {
   cout << "Oh, my experiment starts !" << endl;
-  setlocale(LC_ALL, "en_US");
+setlocale(LC_ALL,"en_US");
   experiment_time = 0;
-  // press_cal_time = cal_time;
 }
 
-double time_step;
-double nonlinear_time;
-double lattice_size_m;
-
 /*************************************************************
- * Now we start with the initialization function
- * This function initialized some Elle basics
- * reads input file if one is there,
- * opens the interface
- * and starts the local initialization functions for the
- * desired process
- *
- *************************************************************/
+* Now we start with the initialization function 
+* This function initialized some Elle basics
+* reads input file if one is there, 
+* opens the interface
+* and starts the local initialization functions for the 
+* desired process
+* 
+*************************************************************/
 
-void Experiment::Init() {
+void Experiment::Init()
+{
   //-------------------------------------------------
   // local variables
   //-------------------------------------------------
 
-  char *infile; // input
-  int err = 0;  // pass errors
-  int i, j;     // counter
-  float set;
-  float visc;
-  UserData udata; // Elle Structure for data from input
-  int process;    // variable for the data (which process)
-  int strength;
+  char *infile;  // input
+  int err=0;     // pass errors
+  int i, j;         // counter
+  UserData udata;  // Elle Structure for data from input
+  int process;  // variable for the data (which process)
 
   //*-----------------------------------------------
   //* clear the data structures
@@ -116,203 +108,423 @@ void Experiment::Init() {
   //* read the data
   //*-----------------------------------------------
 
-  infile = ElleFile(); // input file specified by -i
+  infile = ElleFile();	// input file specified by -i
   file = infile;
-  ElleUserData(
-      udata); // reads in data from the initial call of the program behind -u
-  process = (int)udata[0]; // get this data from Elle
-  strength = (int)udata[1];
+  ElleUserData(udata);  // reads in data from the initial call of the program behind -u
+  process = (int)udata[0];  // get this data from Elle
 
   //----------------------------------------------------
   // processes are defined by simple integers
   //----------------------------------------------------
-  wrapping = false;
 
-  if (strlen(infile) > 0) {
-    //--------------------------------------------
-    // only go in here if an input file is there
-    //--------------------------------------------
 
-    if (err = ElleReadData(infile))
-      OnError(infile, err);
+  if (strlen(infile)>0)
+    {
+      //--------------------------------------------
+      // only go in here if an input file is there
+      //--------------------------------------------
 
-    //--------------------------------------------------
-    // the switch function is used for manual input.
-    // The processes can all be called from the
-    // new interface.
-    //
-    // Without interface specify a process using the
-    // -u command after calling the experiment.
-    // ./my_experiment -u 1
-    // -u 1 fracturing
-    // -u 2 fracture boudinage
-    // -u 3 expanding inclusions
-    // -u 4 shrinkage cracks
-    // -u 5 viscoelastic deformation
-    // -u 6 grooves
-    // -u 7 Stylolites
-    // -u 8 combine graingrowth and fractures
-    // -u 9 solid solid phase change
-    // -u 10 heat flow
-    // -u 11 pure grain growth
-    // -u 12 Lattice gas diffusion
-    // -u 13 Lattice gas fluid flow
-    //--------------------------------------------------
+      if (err=ElleReadData(infile))
+        OnError(infile,err);
 
-    switch (process) {
-
-      /*********************************************************************
-       *
-       *	FRACTURE PROCESSES
-       *
-       **********************************************************************/
-    case 0:
-      // SetUpFromFile();
-      break;
-
-    case 27: // Poroelastic Deformation (Hydrofracturing) new code for melt in
-             // here
-      cout << endl << "new fluid" << endl;
-      cout << "Latte 2016" << endl;
-
-      Activate_Lattice();
-
-      // Loose_Springs(true);
-      // Shift_Particles(0.1);
-      // Shift_Particles(0.1);
-      // Shift_Particles(0.1);
-      // Adjust_Springs_Particles();
-
-      Initialize_Fluid_Lattice(100, 1000, 0.1, 2000.0);
-
-      SetDistributionPorosity(2.0);
-
-      Fluid_Parameters(0, 1, 0.0000001);
-
-      SetVariationBreakingThreshold(0.6);
-      WeakenAll(0.8, 1.0, 1.0);
-
-      Only_Extension(true);
-
-      Gravity(100, 2700); // depth, density
-      getTimeForCsv(experiment_time, 10);
-      Relaxation();
-
-      // WeakenHorizontalParticleLayer(0.0,1.0,0.5, 0.55, 1.0, 1.0, 1.0,1.17);
-
-      Hydrostatic_Fluid(100);
-
-      // Set_Calcite();
-
-      cout << "applied gravity " << endl;
-      UpdateElle(); // and update the interface of Elle
-
-      break;
-
-    case 32: // advection-diffusion-reaction  // large scale fluid movement with
-             // phreeqc as reaction engine
-      cout << endl << "new fluid react coupling with PhreeqC" << endl;
-      cout << "Latte 2021" << endl;
-
-      Activate_Lattice();
-
-      getTimeForCsv(experiment_time, 1);
-
-      //---------------------------------------------------------------------------------
-      // this function Initialized the lattice
+      //--------------------------------------------------
+      // the switch function is used for manual input.
+      // The processes can all be called from the
+      // new interface.
       //
-      // first number is background fluid pressure, second number is scale (x)
-      // in m third number is initial concentration of all nodes and last number
-      // is time factor for the pressure diffusion.
-      //---------------------------------------------------------------------------------
+      // Without interface specify a process using the
+      // -u command after calling the experiment.
+      // ./my_experiment -u 1
+      // -u 1 fracturing
+      // -u 2 fracture boudinage
+      // -u 3 expanding inclusions
+      // -u 4 shrinkage cracks
+      // -u 5 viscoelastic deformation
+      // -u 6 grooves
+      // -u 7 Stylolites
+      // -u 8 combine graingrowth and fractures
+      // -u 9 solid solid phase change
+      // -u 10 heat flow
+      // -u 11 pure grain growth
+      // -u 12 Lattice gas diffusion
+      // -u 13 Lattice gas fluid flow
+      //--------------------------------------------------
 
-      time_step = 1.0;      // in seconds
-      lattice_size_m = 5.0; // in meters
+      switch (process)
+        {
 
-      Initialize_Fluid_Lattice(10, lattice_size_m, 0.01,
-                               time_step); // setting up the fluid
+          /*********************************************************************
+          *    
+          *	FRACTURE PROCESSES 
+          * 
+          **********************************************************************/
+        case 0:
+          SetUpFromFile();
+          break;
 
-      // this would set an initial fluid pressure gradient
-      // Hydrostatic_Fluid(10);
+        case 1: // fracturing
+          cout << "Fracturing" << endl;
+          cout << "Lattice Version 2.0, 2004/5" << endl;
+          Activate_Lattice();  // construct the lattice
+          SetPhase(0.0,0.0,2.0,1.2);	// set a distribution of breaking strengths (linear)
+          SetGaussianSpringDistribution(1.0, 0.5); // set a distribution of Youngs Moduli
+          MakeGrainBoundaries(1.0, 0.5);		// Make grain boundaries weaker
+          SetFracturePlot(50,1); 	// plot fractures after 50 bonds broken
+          break;
 
-      // this sets a random distribution on the porosity
+        case 2:  // fracture boudinage
+          cout << "Fracture Boudinage" << endl;
+          cout << "Lattice Version 2.0, 2004/5" << endl;
+          Activate_Lattice(); // contruct the lattice
+          SetGaussianStrengthDistribution(2.0,0.8);  // set a distribution of breaking strengths (gaussian)
+          WeakenAll(0.1,1.0,1.0); // Lower Youngs modulus of all grains
+          WeakenHorizontalParticleLayer(0.20,0.60,10.0,1.0,1.0); // Make a layer at (ymin, ymax, Youngs Modulus, Viscosity, breaking strength)
+          WeakenHorizontalParticleLayer(0.9,0.92,10.0,1.0,1.0); // same as above
+          SetFracturePlot(50,1); // plot fractures after 50 bonds are broken
+          break;
 
-      SetDistributionPorosity(0.010);
+        case 3:  // expanding inclusions
+          cout << "Expanding Inclusions" << endl;
+          cout << "Lattice Version 2.0, 2004/5" << endl;
+          Activate_Lattice(); // construct the lattice
+          SetPhase(0.0,0.0,0.8,1.2); // Linear distribution of breaking strengths
+          SetFracturePlot(20,1); // plot fractures after 5 bonds are broken
+          break;
 
-      // setting some vertical and horizontal fractures
+        case 4: // shrinkage patterns
+          cout << "Shrinkage Patterns" << endl;
+          cout << "Lattice Version 2.0, 2004/5" << endl;
+          Activate_Lattice(); // construct the lattice
+          WeakenAll(2.0,1,1.0); // Weaken Youngs modulus of all grains
+          SetPhase(0.0,0.0,1.0,1.0); // Distribution of breaking strengths (linear)
+          //SetSinAnisotropy(20, 1.2); // Sinusoidal anisotropy (vertical) of Youngs Moduli
+          //SetGaussianStrengthDistribution(1.0,0.35);  // Distribution of breaking strengths (gaussian)
+          SetFracturePlot(20,1); // plot fractures after 5 bonds are broken
+          break;
+          /**************************************************************************
+          *
+          *		VISCOELASTIC DEFORMATION AND FRACTURING
+          *
+          *************************************************************************/
 
-      // variation of some elastic parameters and breaking strength
+        case 5: // viscoelastic
+          cout << "visco-elastic" << endl;
+          cout << "Lattice Version 2.0, 2004/5" << endl;
+          Activate_Lattice();   // Construct the lattice
+          //--------------------------------------------------
+          // Set external walls around the box. No particles
+          // can now leave the box.
+          // External walls are only compressive
+          //--------------------------------------------------
+          SetWallBoundaries(1,1.0);
+          //--------------------------------------------------
+          // Set a distribution on the breaking strengths of
+          // all springs. Distribution can be Gaussian
+          // around a mean strength or linear between
+          // two endmembers. Values are distributed randomly
+          //--------------------------------------------------
+          //SetGaussianStrengthDistribution(2.5,0.8); // Set a Gaussian distribution with a mean and a variance
+          SetPhase(0.0,0.0,1,0.6); // Set a linear distribution around a mean value and with a certain width
+          //--------------------------------------------------
+          // Change youngs modulus, Viscosity and breaking
+          // Strength of all particles
+          // Youngs modulus of 1 is default, Scales as
+          // 10 GPa in the model (this value is then a
+          // reference).
+          // Viscosity is by default e^20 if Youngs modulus 1
+          // in the model is 10 GPa in reality.
+          //--------------------------------------------------
+          WeakenAll(0.1,1,1.0);
+          //----------------------------------------------------------------------------------
+          // Change some initial values in order to have an anisotropy
+          // a) Change values of one grain (or more)
+          // b) induce a horizontal anisotropy in the form of hard flakes with varying Moduli
+          // c) Insert a horizontal weaker or stronger layer
+          //----------------------------------------------------------------------------------
+          //WeakenGrain(7,10,10,1); // Change Youngs modulus and viscosity of grain nb 7
+          //SetAnisotropyRandom(5,5); // insert a horizontal anisotropy of mica grains
+          WeakenHorizontalParticleLayer(0.47,0.52,5.0,5.0,1.0); // Insert a horizontal layer
+          //------------------------------------------------------------------------------
+          //ChangeRelaxThreshold(0.1);//factor, 1=normal
+          //SetFracturePlot(5,1);
+          break;
+          /*****************************************************************************
+          *
+          *		REACTIONS 
+          *
+          ******************************************************************************/
 
-      // variation of breaking threshold
-      SetVariationBreakingThreshold(0.6);
+        case  6:  // grooves on free surfaces
+          cout << "Dissolution Grooves" << endl;
+          cout << "Phase_Lattice Version 2.0, 2004/5"<< endl;
+          Activate_Lattice(); // construct the lattice
+          SetPhase(0.0,0.0,500.0,0.8);  // impossible to break (strength * 500)
+          SetGaussianRateDistribution(2.0,0.3); // Distribution on rate constants of reaction (gaussian)
+          WeakenAll(8.0,1.0,1.0);  // Change Youngs modulus of all particles
+          Set_Mineral_Parameters(1);  // define a mineral here Quartz
+          Set_Absolute_Box_Size(0.00008);  // Set the absolute Elle box size in meters
+          Set_Time(6000.0,4);  // set the time (here 6000 years)
+          DissolveXRow(0.95,1.1);   // dissolve particles > xpos 0.95 to have a free interface on the right side
+          SetWallBoundaries(0,15.0);
+          break;
 
-      // change overall parameters, first elastic constant, second viscosity,
-      // third breaking strength
-      WeakenAll(0.8, 1.0, 10.0);
+        case 7: // Stylolites
+          cout << "Stylolite Roughening" << endl;
+          cout << "Phase_Lattice Version 2.0, 2004/5"<< endl;
+          Activate_Lattice();
+          //----------------------------------------------------
+          // give bonds very high strength (*500) to avoid
+          // in this case fracturing during Stylolite growth
+          //----------------------------------------------------
+          SetPhase(0.0,0.0,500.0,0.8);
+          //----------------------------------------------------
+          // Set a Gaussian distribution on the rate constants
+          // of single particles, first mean value, second
+          // deviation
+          //----------------------------------------------------
+          //SetGaussianRateDistribution(2.0,0.1);
+          Set_Rate_Two_Phase(0.05,0.6,1.0);
+          //----------------------------------------------------
+          // change the Youngs modulus of particles to make
+          // them stiffer (*4.0). Second and third number are
+          // breaking strength and viscosity, 1.0 means no
+          // change of these parameters
+          //----------------------------------------------------
+          WeakenAll(4.0,1.0,1.0);
+          //----------------------------------------------------
+          // Set some mineral paramters, 1 means quartz as
+          // mineral, sets the molecular volume and the
+          // surface free energy
+          //----------------------------------------------------
+          Set_Mineral_Parameters(1);
+          //----------------------------------------------------
+          // gives the x dimension of the Elle box in meters
+          //----------------------------------------------------
+          Set_Absolute_Box_Size(0.1); //was 0.1
+          //----------------------------------------------------
+          // set the time for one deformation step. 6000 years
+          // 4 means years
+          //----------------------------------------------------
+          Set_Time(40.0,4);  //was 40,4
+          //----------------------------------------------------
+          // dissolve initially one horizontal row of particles
+          // in the middle of the Elle box
+          // numbers are min and max y value
+          //----------------------------------------------------
+          //DissolveYRowSinus(0.49,0.5,true); //was 0.496
+		  DissolveYRow(0.49,0.5,true); //was 0.496
+		  ChangeRelaxThreshold(0.1);
+		  //ChangeYoung(2);
+          break;
 
-      // WeakenHorizontalParticleLayer(0.2, 0.95, 0.5,
-      // 0.55, 1.0, 1.0, 1.0,1.07);
+        case 8:
+          cout << "Combine Latte and GrainGrowth" << endl;
+          cout << "Phase_Lattice Version 2.0, 2004/5"<< endl;
+          Activate_Lattice();  // Construct the lattice
+          SetPhase(0.0,0.0,200.0,1.0);  // Set breaking strength distributio
+          SetGaussianSpringDistribution(0.5, 0.5);  // set distribution on youngs moduli
+          MakeGrainBoundaries(1.0, 0.5);  // define grain boundaries
+          SetFracturePlot(1,0);  // plot every fracture
+          ElleAddDoubles();  // add some doubles for grain growth (Elle function)
+          break;
 
-      WeakenHorizontalParticleLayer(0.0, 0.4, 0.0, 0.3, 1.0, 1.0, 1.0, 1.07);
+        case 9: //phase change
+          cout << "solid solid phase transformation, slow reaction, no distribution" << endl;
+          Activate_MinTrans();
+          SetReactions(450000.0, 12e9); // sets the activation energy (J/mol) for the reaction and the pressure barrier where the grain-boundary migration will start (Pa). Also calls setheatflowparameters() for olivine
+          heat_distribution.SetHeatFlowParameters(4.2, 1005.0, 0.000001, 1000.0); // rho, c, diffusivity, boundary_condition (in °K)
+          WeakenAll(20.0, 0.0, 5000.0);
+          AdjustConstantGrainBoundaries();
+          MakeGrainBoundaries(1.0,0.8);
+          Set_Mineral_Parameters(3);
+          Set_Absolute_Box_Size(0.005);
+          Set_Time(120, 3); //(x,2):0=sek, 1=Stunden, 2=Tage, 3=Monate, 4=Jahre
+          break;
 
-      WeakenHorizontalParticleLayer(0.6, 1.0, 0.0, 0.3, 1.0, 1.0, 1.0, 1.07);
+        case 10:
+          cout << "Heat Flow" << endl;
+          Activate_MinTrans();   // contruct lattice for phase transformations
+          SetPhase(0.0,0.0, 500.0,0.8); //spring constant wurde justiert (500.0 statt 0.0)
+          Set_Absolute_Box_Size(0.01);  // Absolute box size in meters
+          //SetHeatLatticeHeatFlowExample();
+          heat_distribution.SetHeatFlowParameters(4.2, 1005.0, 0.000001, 1000.0); // rho, c, diffusivity, boundary_condition (in °K)
+          HeatGrain(1500,3);
+          break;
 
-      // angular forces or not
-      Only_Extension(true);
+        case 11:
+          cout << "pure grain growth" << endl;
+          ElleAddDoubles();  // add doubles (Elle functions)
+          // ElleUpdate();      make a picture
+          ElleUpdateDisplay();      // make a picture
+          break;
 
-      // give fluid parameters, first number boundary condition, second number
-      // cozeny grain size
-      Fluid_Parameters(0, 1, 0.000001);
+        case 12:
+          cout << " Lattice Gas" << endl;
+          Activate_Lattice();  // contruct the lattice
+          SetFluidLatticeGasRandom(0.01);  // background contains some particles randomly distributed (1%)
+          /*********************************************************
+          * Specify some grains that have a concentration of 70 %
+          *********************************************************/
+          for (j = 0; j < HighestGrain(); j++)
+            {
+              SetFluidLatticeGasRandomGrain(0.4,j*10);
+            }
+          break;
 
-      Relaxation();
-      Set_Calcite();
+        case 13:
+          cout << " Lattice Gas Flow" << endl;
+          Activate_Lattice();  // contruct the lattice
+          SetFluidLatticeGasRandom(0.005);  // fluid density in the background (0.5 %)
+          /*********************************************************
+          * Specify some grains that are fracture walls 
+          *********************************************************/
+          for (j = 0; j < HighestGrain(); j++)
+            {
+              SetWallsLatticeGas(j*5);
+            }
+          break;
 
-      cout << endl << " Phreeqc - Hydrogeochemical Modeling" << endl;
-      SetResultMaps(
-          "calcite,dolomite,density"); // set the desired output here. Currently
-                                       // only for density and si's
-      SetHydroChem(
-          "seawater.txt", "brine_2.txt",
-          "phreeqc.dat"); // first argument is pore fluid, second arguments is
-                          // the infilatrating fluid ,and teh last is teh
-                          // databse that should be used
+        case 15:
+          Activate_Lattice();
+          SetWallBoundaries(1,1);
+          SetGaussianRateDistribution(2.0,0.3);
+          //----------------------------------------------------
+          // change the Youngs modulus of particles to make
+          // them stiffer (*4.0). Second and third number are
+          // breaking strength and viscosity, 1.0 means no
+          // change of these parameters
+          //----------------------------------------------------
+          WeakenAll(8.0,1.0,100.0);
+          //----------------------------------------------------
+          // Set some mineral paramters, 1 means quartz as
+          // mineral, sets the molecular volume and the
+          // surface free energy
+          //----------------------------------------------------
+          Set_Mineral_Parameters(1);
+          //----------------------------------------------------
+          // gives the x dimension of the Elle box in meters
+          //----------------------------------------------------
+          Set_Absolute_Box_Size(0.0001);
+          //----------------------------------------------------
+          // set the time for one deformation step. 6000 years
+          // 4 means years
+          //----------------------------------------------------
+          Set_Time(60.0,4);
+          DissolveYRow(0.0,0.2,false);
+          //DissolveXRow(0.8,1.1);
+          //----------------------------------------------------
+          // dissolve initially one horizontal row of particles
+          // in the middle of the Elle box
+          // numbers are min and max y value
+          //----------------------------------------------------
+          Set_Fluid_Pressure(10);
+          Set_Concentration();
+          Make_Concentration_Box(1.0, 2);
+          Set_Dis_Time(40);
+          break;
 
-      UpdateElle();
+        case 16:
+          Activate_Lattice();
+          SetWallBoundaries(0,0.1);
+          SetGaussianRateDistribution(2.0,0.01);
+          //----------------------------------------------------
+          // change the Youngs modulus of particles to make
+          // them stiffer (*4.0). Second and third number are
+          // breaking strength and viscosity, 1.0 means no
+          // change of these parameters
+          //----------------------------------------------------
+          WeakenAll(8.0,1.0,100.0);
+          //----------------------------------------------------
+          // Set some mineral paramters, 1 means quartz as
+          // mineral, sets the molecular volume and the
+          // surface free energy
+          //---------------------------------------------------
+          Set_Mineral_Parameters(2);
+          //----------------------------------------------------
+          // gives the x dimension of the Elle box in meters
+          //----------------------------------------------------
+          Set_Absolute_Box_Size(0.0001);
+          //----------------------------------------------------
+          // set the time for one deformation step. 6000 years
+          // 4 means years
+          //----------------------------------------------------
+          Set_Time(6.0,2);
+          //DissolveYRow(0.0,0.2,false);
+          DissolveXRow(0.8,1.1);
+          //----------------------------------------------------
+          // dissolve initially one horizontal row of particles
+          // in the middle of the Elle box
+          // numbers are min and max y value
+          //----------------------------------------------------
+          Set_Fluid_Pressure(0.01);
+          Set_Concentration();
+          Make_Concentration_Box(1.1, 1);
+          Set_Dis_Time(40);
+          break;
 
-      break;
+        case 17:
+          cout << "solid solid phase transformation, fast reaction, no distribution" << endl;
+          Activate_MinTrans();
+          SetReactions(380000.0, 12e9); // sets the activation energy (J/mol) for the reaction and the pressure barrier where the grain-boundary migration will start (Pa). Also calls setheatflowparameters() for olivine
+          heat_distribution.SetHeatFlowParameters(4.2, 1005.0, 0.000001, 1000.0); // rho, c, diffusivity, boundary_condition (in °K)
+          WeakenAll(20.0, 0.0, 5000.0);
+          AdjustConstantGrainBoundaries();
+          MakeGrainBoundaries(1.0,0.8);
+          Set_Mineral_Parameters(3);
+          Set_Absolute_Box_Size(0.005);
+          Set_Time(120, 3); //(x,2):0=sek, 1=Stunden, 2=Tage, 3=Monate, 4=Jahre
+          break;
+
+        case 18:
+          cout << "solid solid phase transformation, high distribution" << endl;
+          Activate_MinTrans();
+          SetReactions(450000.0, 12e9); // sets the activation energy (J/mol) for the reaction and the pressure barrier where the grain-boundary migration will start (Pa). Also calls setheatflowparameters() for olivine
+          heat_distribution.SetHeatFlowParameters(4.2, 1005.0, 0.000001, 1000.0); // rho, c, diffusivity, boundary_condition (in °K)
+          SetPhase(20.0, 1.0, 5000.0, 0.000000001); //spring constant wurde justiert (500.0 statt 0.0)
+          AdjustConstantGrainBoundaries();
+          MakeGrainBoundaries(1.0,0.8);
+          SetGaussianYoungDistribution_2(1.0,0.5);
+          Set_Mineral_Parameters(3);
+          Set_Absolute_Box_Size(0.005);
+          Set_Time(120, 3); //(x,2):0=sek, 1=Stunden, 2=Tage, 3=Monate, 4=Jahre
+          break;
+		
+        }
     }
-  } else
-    cout << "no file open ! " << endl; // no input file in function call, can be
-                                       // opened from the interface
+  else
+    cout << "no file open ! "<< endl; // no input file in function call, can be opened from the interface
 
-  // UpdateElle();
-  // ElleUpdateDisplay();
-  // cout << "update display" << endl;
+  //UpdateElle();
+  //ElleUpdateDisplay(); // removed: called before GL canvas is initialized, causes segfault
 }
+
 
 /******************************************************************
  * A runfunction for the Experiment
- *
- *	In this function each process (again specified by -u in a switch
- *   command) is executed.
- *
- *  Latte version 2.0, 2005/6
- ******************************************************************/
+*
+*	In this function each process (again specified by -u in a switch
+*   command) is executed. 
+*
+*  Latte version 2.0, 2005/6
+   ******************************************************************/
 
-void Experiment::Run() {
+
+
+void Experiment::Run()
+{
   //----------------------------------------------------
   // some local variables
-  //------------------------------
+  //----------------------------------------------------
 
-  int i, j, k, kk, ii, iii; // counter
-  int time;                 // time
-  int process;              // int for process
-  UserData udata;           // elle defined user data (-u )
+  int i,j,k;        	// counter
+  int time;     		// time
+  int process;			// int for process
+  UserData udata; 		// elle defined user data (-u )
 
-  ElleCheckFiles(); // Check the files
+  ElleCheckFiles();   	// Check the files
 
-  ElleUserData(udata);     // get the usr data from elle
-  process = (int)udata[0]; // process is user data 0
+  ElleUserData(udata);		// get the usr data from elle
+  process = (int)udata[0];	// process is user data 0
 
   ElleUpdateDisplay();
 
@@ -322,127 +534,160 @@ void Experiment::Run() {
 
   time = EllemaxStages(); // number of stages
 
-  j = 0;
+
   //--------------------------------------------------
   // loop through the time steps
   //--------------------------------------------------
 
-  for (i = 0; i < time; i++) // cycle through stages
-  {
-    cout << "time step:" << experiment_time << endl;
-    j++;
-    switch (process) {
-    case 0:
-      // RunFromFile(experiment_time);
-      break;
+  for (i=0;i<time;i++)   // cycle through stages
+    {
+      cout << "time step" << experiment_time << endl;
 
-    case 1: // fracturing
-            // if (experiment_time < 5)
+      switch (process)
+        {
+        case 0:
+          RunFromFile(experiment_time);
+          break;
 
-      getTimeForCsv(experiment_time, 2);
+        case 1: // fracturing
+          if (experiment_time < 15)
+            {
+              DeformLattice(0.001, 1);
+            }
+          else
+            {
+              DeformLatticePureShear(0.001,1);
+            }
+          break;
 
-      if (experiment_time < 1) {
-        DeformLattice(0.0001, 0);
-      } else {
-        DeformLatticePureShear(0.0001, 0);
-      }
+        case 2: // fracture boudinage
+          DeformLatticePureShear(0.001,1);
+          break;
 
-      Get_Aperture();
+        case 3: // expanding inclusions
+          ShrinkGrain(5, -0.002, 1);
+          break;
 
-      UpdateElle();
-      break;
+        case 4: // shrinkage patterns
+          ShrinkBox(0.001, 1, 1);
+          break;
 
-    case 27:
-      //--------------------------------------------------------
-      // A is healing
-      //
-      // B is fracture age
-      //
-      //----------------------------------------------------------
+        case 5: // viscos relax
+          DeformLatticePureShear(0.001,1);
+          ViscousRelax(1, 1e11); // strain 0.001 and 1e11 are strain rate 10^-12
+          break;
 
-      Fluid_Parameters(0, 1, 0.0000001);
-      for (iii = 0; iii < 10; iii++)
-        Fluid_Insert_Random_Node(0.4, 0.5, 10000000);
+        case 6:  // grooves
+          DeformLattice(0.002,1);
+          Dissolution_Strain(20);
+          break;
 
-      Calculate_Fluid_Pressure(9800000, 0, 1, 0, 1, 0.0);
+        case 7: // Stylolites
+          //-------------------------------------------------
+          // Deform the lattice from upper and lower
+          // boundaries. Upper and lower part of the lattice
+          // are now just pressed together assuming
+          // there is no resistance. Stresses build up once
+          // the two sides meet. Deformation steps have to
+          // be very small
+          // The side walls are fixed. Movement is vertical
+          // in steps of 0.00005 * y size (1.0)
+          // second number means make a picture after the
+          // movement. 0 means take no picture.
+          //-------------------------------------------------
+          DeformLatticeNewAverage2side(0.00005,1);
+          //---------------------------------------------------
+          // Dissolution routine. Particles are just dissolved
+          // depending on stress, elastic and surface
+          // energies. One particle is dissolved in a time
+          // step. 100 means take a picture after 100 particles
+          // have dissolved.
+          //---------------------------------------------------
+          Dissolution_StylosII(100000,0,0,0,1);
+          break;
 
-      Adjust_Gravity();
+        case 8: // combined grain growth and fracturing
+          DeformLatticePureShear(0.001,1);  // pure shear deformation strain in y direction is 0.1 %
+          DoGrowth(i); // grain growth step, calls growth function in graingrowth.cc
+          GetNewElleStructure();  // reread the Elle structure for Latte after grain growth
+          break;
 
-      Relaxation();
+        case 9: //phase change
+          DeformLattice(0.002, 1); // deform and relax //(0.0002,x): deformationsstep, ursprünglich 0.002
+          heat_distribution.SetHeatFlowEnabled(1);
+          //***float Lattice::DeformLattice(float move, int plot)***
+          DumpStatisticStressBox(0.2,0.8,0.2,0.8,0.002);
+          Start_Reactions();
+          break;
 
-      UpdateElle();
+        case 10:  // Heat Flow
+          // elle->SetHeatFlowEnabled(1); // use this function only in context of phase change!!! Never together with the below called elle->Heat_Flow()
+          // called in Min_Trans-class
+          Heat_Flow(25);
+          DeformLatticePureShear(0.005,1);
+          break;
 
-      break;
+        case 11: // pure grain growth
+          DoGrowth(i);  // do only grain growth (in graingrowth.cc)
+          break;
 
-    case 32: // Advection diffusion and reaction	large scale
-      //--------------------------------------------------------
-      // A is solid
-      // Temperature is fluid pressure
-      // B is concentration
-      // C is fluid pressure gradient
-      // Energy is darcy velocity in y
-      // Dislocation density is porosity
-      //----------------------------------------------------------
+        case 12: // diffusion
+          UpdateFluidLatticeGas(); // run one lattice gas step (transport + collisions)
+          break;
 
-      // set fluid parameters reads back material properties
-      // from the lattice (particles etc. setting porosity
-      // and permeability)
+        case 13:	// fluid flow
+          InsertFluidLatticeGas(0.03, 0.9); // pump in fluid at left boundary
+          UpdateFluidLatticeGas();	// one lattice gas step (transport + collisions)
+          RemoveFluidLatticeGas(0.97); // suck out fluid at right boundary
+          break;
 
-      Fluid_Parameters(0, 1, 0.00001);
+        case 15:
+          //DeformLattice(0.001,1);
+          DeformLatticeNoAverage(0.001,1);
+          GrowthDissolution(20,1,1,experiment_time);
+          break;
 
-      if (j < 2)
-        TestInitPhreeqc();
+        case 16:
+          DeformLattice(0.001,1);
+          GrowthDissolution(1,1,0,experiment_time);
+          break;
 
-      if (j < 400) {
-        nonlinear_time = Calculate_Fluid_Pressure_timeadjust(10, 1000000, 1, 1,
-                                                             0, j * 50000);
-        TransportPhreeqc(nonlinear_time, lattice_size_m, 1);
-        GetOutputPhreeqc();
-      } else {
-        nonlinear_time = Calculate_Fluid_Pressure_timeadjust(10, 1000000, 1, 1,
-                                                             0, 400 * 50000);
-        TransportPhreeqc(nonlinear_time, lattice_size_m, 1);
-        GetOutputPhreeqc();
-      }
+        case 17:
+          DeformLattice(0.002, 1); // deform and relax //(0.0002,x): deformationsstep, ursprünglich 0.002
+          heat_distribution.SetHeatFlowEnabled(1);
+          //***float Lattice::DeformLattice(float move, int plot)***
+          DumpStatisticStressBox(0.2,0.8,0.2,0.8,0.002);
+          Start_Reactions();
+          break;
 
-      // TESTING PHREEQC
-      // TestPhreeqc(nonlinear_time*10, size);
-      // Make_Dolomite(1000000, i, 0.2, 0.01);
-
-      // Relaxation();
-      AccumulateSolIndex();
-      // if ((j % 50) == 0)
-      //{
-      // DumpSolIndex (50);
-      // DumpSolIndexvertical (0.33);
-
-      UpdateElle();
-
-      break;
+		  case 18:
+          DeformLattice(0.002, 1); // deform and relax //(0.0002,x): deformationsstep, ursprünglich 0.002
+          heat_distribution.SetHeatFlowEnabled(1);
+          //***float Lattice::DeformLattice(float move, int plot)***
+          DumpStatisticStressBox(0.2,0.8,0.2,0.8,0.002);
+          Start_Reactions();
+          break;       
+        }
+      experiment_time ++;
+      // LE I moved this from lattice
+      // -----------------------------------------------------------------
+      // call ElleUpdate() an Elle function that updates the interface
+      // then the new values will be plotted
+      // if security stop is set and max number of picts is reached dont
+      // plot pict anymore.
+      // -----------------------------------------------------------------
+  if (!set_max_pict)
+    {
+      // cout << "interface" << endl;
+      ElleUpdate ()
+      ;
     }
-    experiment_time++;
-    Set_TimeFrac(experiment_time);
-    // LE I moved this from lattice
-    // -----------------------------------------------------------------
-    // call ElleUpdate() an Elle function that updates the interface
-    // then the new values will be plotted
-    // if security stop is set and max number of picts is reached dont
-    // plot pict anymore.
-    // -----------------------------------------------------------------
-    // if (!set_max_pict)
-    //   {
-    // if (j == 10)
-    //{
-    // cout << "interface" << endl;
-    // ElleUpdate ();
-    // j = 0;
-    //}
-    // }
-    // else if (num_pict < max_pict)
-    //  {
-    //  cout << "interface" << endl;
-    // ElleUpdate ();
-    // max_pict = max_pict + 1;
-    //}
-  }
+  else if (num_pict < max_pict)
+    {
+      // cout << "interface" << endl;
+      ElleUpdate ()
+      ;
+      max_pict = max_pict + 1;
+    }
+    }
 }

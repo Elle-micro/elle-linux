@@ -3,6 +3,6 @@
 #include "gpc.h"
 
 int gpcclip(std::vector<Coords> &pv2, std::vector<Coords> &pv1,
-            std::vector<std::vector<Coords>> &pclip, gpc_op op);
+				std::vector<std::vector<Coords> > &pclip , gpc_op op);
 
 #endif

@@ -22,8 +22,8 @@
       (C) 1997 Klamer Schutte (minor patches)
 */
 
-#ifndef POLY_H
-#define POLY_H
+#ifndef	POLY_H
+#define	POLY_H
 
 #include "vectmatr.h"
 
@@ -31,74 +31,84 @@
 extern "C" {
 #endif
 
-enum { err_no_memory = 2, err_bad_parm = 3, err_ok = 0 };
+enum
+{
+    err_no_memory = 2,
+    err_bad_parm = 3,
+    err_ok = 0
+};
 
-#define PLF_STATUS 0x0003
-#define PLF_CYCLINK 0x0004
-#define PLF_MARK 0x0008
-#define PLF_RESERVED 0x00FF
+#define PLF_STATUS      0x0003
+#define PLF_CYCLINK     0x0004
+#define PLF_MARK		0x0008
+#define PLF_RESERVED	0x00FF
 
-#define PLF_ORIENT 0x0100
-#define PLF_DIR 0x0100
-#define PLF_INV 0x0000
+#define PLF_ORIENT      0x0100
+#define PLF_DIR         0x0100
+#define PLF_INV         0x0000
 
 typedef struct VNODE VNODE;
-struct VNODE {
-  VNODE *next, *prev;
-  unsigned int Flags;
-  Vector point;
-  union {
-    VNODE *link;
-    void *v;
-    int i;
-  } t;
+struct VNODE
+{
+    VNODE *next, *prev;
+    unsigned int Flags;
+    Vector point;
+    union
+    {
+        VNODE *link;
+        void *v;
+        int i;
+    } t;
 };
 
 typedef struct PLINE PLINE;
-struct PLINE {
-  PLINE *next;
-  VNODE head;
-  unsigned int Count;
-  unsigned int Flags;
-  float xmin, ymin, xmax, ymax;
+struct PLINE
+{
+    PLINE *next;
+    VNODE head;
+    unsigned int Count;
+	unsigned int Flags;
+    float xmin, ymin, xmax, ymax;
 };
 
 PLINE *poly_NewContour(Vector v);
 
-void poly_IniContour(PLINE *c);
-void poly_ClrContour(PLINE *c); /* clears list of vertices */
-void poly_DelContour(PLINE **c);
+void poly_IniContour(PLINE *  c);
+void poly_ClrContour(PLINE *  c);  /* clears list of vertices */
+void poly_DelContour(PLINE ** c);
 
-BOOL poly_CopyContour(PLINE **dst, PLINE *src);
+BOOL poly_CopyContour(PLINE ** dst, PLINE * src);
 
-void poly_PreContour(PLINE *c, BOOL optimize); /* prepare contour */
-void poly_InvContour(PLINE *c);                /* invert contour */
+void poly_PreContour(PLINE * c, BOOL optimize); /* prepare contour */
+void poly_InvContour(PLINE * c);  /* invert contour */
 
 VNODE *poly_CreateNode(Vector v);
 
-void poly_InclVertex(VNODE *after, VNODE *node);
-void poly_ExclVertex(VNODE *node);
+void poly_InclVertex(VNODE * after, VNODE * node);
+void poly_ExclVertex(VNODE * node);
 
 /**********************************************************************/
 
 typedef struct POLYAREA POLYAREA;
-struct POLYAREA {
-  POLYAREA *f, *b;
-  PLINE *contours;
+struct POLYAREA
+{
+    POLYAREA *f, *b;
+    PLINE *contours;
 };
 
-BOOL poly_M_Copy0(POLYAREA **dst, const POLYAREA *srcfst);
+BOOL poly_M_Copy0(POLYAREA ** dst, const POLYAREA * srcfst);
 void poly_M_Incl(POLYAREA **list, POLYAREA *a);
 
 BOOL poly_Copy0(POLYAREA **dst, const POLYAREA *src);
-BOOL poly_Copy1(POLYAREA *dst, const POLYAREA *src);
+BOOL poly_Copy1(POLYAREA  *dst, const POLYAREA *src);
 
-BOOL poly_InclContour(POLYAREA *p, PLINE *c);
-BOOL poly_ExclContour(POLYAREA *p, PLINE *c);
+BOOL poly_InclContour(POLYAREA * p, PLINE * c);
+BOOL poly_ExclContour(POLYAREA * p, PLINE * c);
 
-BOOL poly_ChkContour(PLINE *a);
 
-BOOL poly_CheckInside(POLYAREA *c, Vector v0);
+BOOL poly_ChkContour(PLINE * a);
+
+BOOL poly_CheckInside(POLYAREA * c, Vector v0);
 
 /**********************************************************************/
 
@@ -108,21 +118,26 @@ BOOL poly_CheckInside(POLYAREA *c, Vector v0);
 independently of its orientation */
 
 int poly_InsideContour(PLINE *c, Vector v);
-int poly_ContourInContour(PLINE *poly, PLINE *inner);
+int poly_ContourInContour(PLINE * poly, PLINE * inner);
 POLYAREA *poly_Create(void);
 
 void poly_Free(POLYAREA **p);
-void poly_Init(POLYAREA *p);
+void poly_Init(POLYAREA  *p);
 void poly_Clear(POLYAREA *p);
 BOOL poly_Valid(POLYAREA *p);
 
-enum PolygonBooleanOperation { PBO_UNITE, PBO_ISECT, PBO_SUB, PBO_XOR };
+enum PolygonBooleanOperation {
+	PBO_UNITE,
+	PBO_ISECT,
+	PBO_SUB,
+	PBO_XOR
+};
 
-int poly_Boolean(const POLYAREA *a, const POLYAREA *b, POLYAREA **res,
-                 int action);
+int poly_Boolean(const POLYAREA * a, const POLYAREA * b, POLYAREA ** res, int action);
 
 #ifdef __cplusplus
 }
 #endif
+
 
 #endif /* POLY_H */

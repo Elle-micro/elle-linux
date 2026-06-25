@@ -1,15 +1,15 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: checkangle.h,v $
- * Revision:  $Revision: 1.1 $
- * Date:      $Date: 2005/07/14 05:21:01 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 /*!
-        \file		checkangle.h
-        \brief		header for checkangle utility
-        \par		Description:
+	\file		checkangle.h
+	\brief		header for checkangle utility
+	\par		Description:
                 Defines user data indices to control the checks
                 done on an elle file by checkangle
 */
@@ -21,13 +21,13 @@
 /*************************************************************
  *	CONSTANT DEFINITIONS
  */
-const int INDEXMINANGLE = 0; // index into user data
-const int INDEXMINAREAFACTOR = 1;
-const int INDEXMAXRATIO = 2;
-const double MINANGLE = 0.16;   // rad (9.167 deg)
-const double MINAREAFACTOR = 1; // factor to vary min flynn area
-const double MAXRATIO = 0;      // flynn ellipsoidal axes ratio
-                                // default ratio 0 turns off check
+const int INDEXMINANGLE=0; // index into user data
+const int INDEXMINAREAFACTOR=1;
+const int INDEXMAXRATIO=2;
+const double MINANGLE=0.16; // rad (9.167 deg)
+const double MINAREAFACTOR=1; // factor to vary min flynn area
+const double MAXRATIO=0;  // flynn ellipsoidal axes ratio 
+                         // default ratio 0 turns off check
 /*************************************************************
  *	MACRO DEFINITIONS
  */
@@ -49,4 +49,4 @@ const double MAXRATIO = 0;      // flynn ellipsoidal axes ratio
 /*************************************************************
  *	EXTERNAL FUNCTION PROTOTYPES
  */
-#endif // _E_checkangle_h
+#endif	// _E_checkangle_h

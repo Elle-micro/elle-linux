@@ -8,11 +8,11 @@
 #ifdef XSYB
 #define fontdat XFontStruct *
 #define colourdat XColor
-#define BLACK_PEN 0
+#define BLACK_PEN  0
 #else
 #define fontdat int
 #define colourdat int
-#define BLACK_PEN 1
-#define XPointer int *
+#define BLACK_PEN  1
+#define XPointer int*
 #endif
 #endif

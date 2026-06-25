@@ -19,16 +19,16 @@
 
 /* #include <Xm/Superclass.h>  */
 
-/*
+/* 
  * This public structure is used as call_data to the callback.
  * It passes the x, y position of the cell toggled (in units of
  * cells, not pixels) and a mode flag that indicates whether the
  * cell was turned on (1) or off (0).
  */
 typedef struct {
-  int mode;
-  int newx;
-  int newy;
+	int mode;
+	int newx;
+	int newy;
 } PlotPointInfo;
 
 #define XtNtoggleCallback "toggleCallback"
@@ -44,7 +44,7 @@ typedef struct {
 #define XtNplotList "plotList"
 #define XtNlabelList "labelList"
 #define XtNshowEntireBitmap "showEntireBitmap"
-
+ 
 #define XtCToggleCallback "ToggleCallback"
 #define XtCCellWidthInPixels "CellWidthInPixels"
 #define XtCCellHeightInPixels "CellHeightInPixels"
@@ -60,19 +60,19 @@ typedef struct {
 #define XtCShowEntireBitmap "ShowEntireBitmap"
 
 /*extern char *BitmapEditGetArray();  w */
-/* Widget w; */
+    /* Widget w; */
 
 /* Class record constants */
 
 extern WidgetClass plotWidgetClass;
 
 typedef struct _PlotClassRec *PlotWidgetClass;
-typedef struct _PlotRec *PlotWidget;
+typedef struct _PlotRec      *PlotWidget;
 
 /* modes for drawing */
 #define DRAW 1
 #define UNDRAW 0
-
+ 
 extern void UndrawCellBorder();
 extern void DrawCellBorder();
 extern void UpdateCell();
