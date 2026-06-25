@@ -1,23 +1,23 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: display.h,v $
- * Revision:  $Revision: 1.4 $
- * Date:      $Date: 2005/10/27 04:11:20 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef _E_display_h
 #define _E_display_h
 
 /* matches def in menus.c */
-#define GRAINS 12
+#define GRAINS    12
 #define SUBGRAINS 13
-#define UNITS 14
+#define UNITS     14
 #define TRIANGLES 15
 
 #ifndef NODSP
 
-int ElleMarkNode(int dd, int *col, float x, float y, float size);
+int ElleMarkNode(int dd,int *col,float x,float y,float size);
 float ElleGetPointRadius(int max);
 #ifdef __cplusplus
 extern "C" {

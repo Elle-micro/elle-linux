@@ -2,7 +2,7 @@
 // Name:        myframe.h
 // Purpose:     XML resources sample: A derived frame, called MyFrame
 // Author:      Robert O'Connor (rob@medicalmnemonics.com), Vaclav Slavik
-// RCS-ID:      $Id: newfile.h,v 1.1 2006/06/02 12:58:38 mjessell Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) Robert O'Connor and Vaclav Slavik
 // Licence:     wxWindows licence
 //-----------------------------------------------------------------------------
@@ -26,42 +26,45 @@
 // Headers
 //-----------------------------------------------------------------------------
 
+#include "wx/dialog.h"
+#include "wizardsetfunc.h"
+#include "wizardrunfunc.h"
+#include "wizardstat.h"
+#include "wizardname.h"
 #include "externalprocess.h"
 #include "latticegas.h"
-#include "wizardname.h"
-#include "wizardrunfunc.h"
-#include "wizardsetfunc.h"
-#include "wizardstat.h"
-#include "wx/dialog.h"
 
 //-----------------------------------------------------------------------------
 // Class definition: NewFile
 //-----------------------------------------------------------------------------
 
 // Define a new frame type: this is going to be our main frame
-class NewFile : public wxDialog {
+class NewFile : public wxDialog
+  {
 
-public:
-  // Constructor.
-  NewFile(wxWindow *parent, wxString);
-  ~NewFile();
-  wxWindow *master;
+  public:
 
-private:
-  usdat *userdata;
+    // Constructor.
+    NewFile( wxWindow* parent , wxString );
+    ~NewFile();
+    wxWindow* master;
 
-  void ShowEditSettingsDialog(wxCommandEvent &event);
-  void ShowRunFunctionsDialog(wxCommandEvent &event);
-  void ShowNameChangeDialog(wxCommandEvent &event);
-  void ShowStatisticsDialog(wxCommandEvent &event);
-  void SetDefaults(wxCommandEvent &event);
-  void OnOk(wxCommandEvent &event);
-  void OnCancel(wxCommandEvent &event);
-  void ExternalProcess(wxCommandEvent &event);
-  void EditLatticeGas(wxCommandEvent &event);
-  void SetButtons();
+  private:
+    usdat* userdata;
 
-  // Any class wishing to process wxWidgets events must use this macro
-  DECLARE_EVENT_TABLE()
-};
+    void ShowEditSettingsDialog( wxCommandEvent& event );
+    void ShowRunFunctionsDialog( wxCommandEvent& event );
+    void ShowNameChangeDialog( wxCommandEvent& event );
+    void ShowStatisticsDialog( wxCommandEvent& event );
+    void SetDefaults( wxCommandEvent& event );
+    void OnOk( wxCommandEvent& event);
+    void OnCancel( wxCommandEvent& event);
+    void ExternalProcess( wxCommandEvent& event);
+    void EditLatticeGas( wxCommandEvent& event);
+    void SetButtons();
+
+    // Any class wishing to process wxWidgets events must use this macro
+    DECLARE_EVENT_TABLE()
+
+  };
 #endif

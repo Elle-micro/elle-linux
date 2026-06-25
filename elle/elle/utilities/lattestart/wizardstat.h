@@ -11,20 +11,21 @@
 //-----------------------------------------------------------------------------
 
 #if defined(__GNUG__) && !defined(__APPLE__)
-#pragma interface "wizardstat.h"
+    #pragma interface "wizardstat.h"
 #endif
 
 //-----------------------------------------------------------------------------
 // Headers
 //-----------------------------------------------------------------------------
 
-#include "userdat.h"
 #include "wx/dialog.h"
+#include "userdat.h"
+#include "wx/variant.h"
 #include "wx/spinbutt.h"
 #include "wx/spinctrl.h"
-#include "wx/variant.h"
 
-enum process_stat {
+enum process_stat
+{
   EDITSTATISTICS,
   STRESS_BOX,
   STRESS_GRAIN,
@@ -39,38 +40,41 @@ enum process_stat {
 // Class definition: WizardDialog
 //-----------------------------------------------------------------------------
 
-class WizardDialogStat : public wxDialog {
+class WizardDialogStat : public wxDialog
+  {
 
-public:
-  WizardDialogStat(wxWindow *parent, process_stat prc = EDITSTATISTICS,
-                   usdat *userdata = new(usdat));
+  public:
 
-  // Destructor.
-  ~WizardDialogStat();
+    WizardDialogStat( wxWindow* parent, process_stat prc = EDITSTATISTICS, usdat* userdata = new(usdat) );
 
-  usdat *userdat;
-  int proc;
+    // Destructor.
+    ~WizardDialogStat();
 
-private:
-  void SetStatistics();
-  void CloseStatistics();
-  void CloseStressBox();
-  void CloseYStress();
-  void CloseXStress();
+    usdat* userdat;
+    int proc;
 
-private:
-  void Cancel(wxCommandEvent &event);
-  void OnOk(wxCommandEvent &event);
-  void SetStressBox(wxCommandEvent &event);
+  private:
+    void SetStatistics();
+    void CloseStatistics();
+    void CloseStressBox();
+    void CloseYStress();
+    void CloseXStress();
+    
+  private:
 
-  void SetXStress(wxCommandEvent &event);
+    void Cancel( wxCommandEvent& event );
+    void OnOk( wxCommandEvent& event );
+    void SetStressBox(wxCommandEvent& event);
 
-  // void OnUpdateCheckboxGauss(  wxUpdateUIEvent &event );
-  // void OnUpdateCheckboxLin(  wxUpdateUIEvent &event );
+    void SetXStress( wxCommandEvent& event );
 
-  // Any class wishing to process wxWidgets events must use this macro
-  DECLARE_EVENT_TABLE()
-};
+    //void OnUpdateCheckboxGauss(  wxUpdateUIEvent &event );
+    //void OnUpdateCheckboxLin(  wxUpdateUIEvent &event );
+
+    // Any class wishing to process wxWidgets events must use this macro
+    DECLARE_EVENT_TABLE()
+
+  };
 
 //-----------------------------------------------------------------------------
 // End single inclusion of this .h file condition

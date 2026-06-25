@@ -1,3 +1,9 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fstream>
+#include <math.h>
 #include "attrib.h"
 #include "check.h"
 #include "convert.h"
@@ -22,19 +28,13 @@
 #include "unodes.h"
 #include "unodesP.h"
 #include "update.h"
-#include <fstream>
-#include <iostream>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #ifndef _E_simple_h
 #define _E_simple_h
 
-#define SIMPLE_FLYNN 0
-#define SIMPLE_BNODE 1
-#define SIMPLE_UNODE 2
+#define  SIMPLE_FLYNN  0
+#define  SIMPLE_BNODE  1
+#define  SIMPLE_UNODE  2
 
 int InitElle(int argc, char **argv, char *rootname, int ProcessType);
 int InitProcessFlynn();

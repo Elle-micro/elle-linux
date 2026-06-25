@@ -7,14 +7,14 @@
 #ifndef _S_arrays_h
 #define _S_arrays_h
 
-#define FNAME_W_START 0
-#define FNAME_W_SIZE 16
-#define DATE_START 16
-#define DATE_SIZE 16
-#define FNAME_R_START 32
-#define FNAME_R_SIZE 16
-#define COMMENTS_START 48
-#define COMMENTS_SIZE 32
+#define FNAME_W_START   0
+#define FNAME_W_SIZE    16
+#define DATE_START      16
+#define DATE_SIZE       16
+#define FNAME_R_START   32
+#define FNAME_R_SIZE    16
+#define COMMENTS_START  48
+#define COMMENTS_SIZE   32
 
 #ifdef __cplusplus
 extern "C" {

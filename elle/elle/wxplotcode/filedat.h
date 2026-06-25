@@ -3,18 +3,18 @@
  *
  *    Copyright (c) 1997 by L.A. Evans & T.D. Barr
  *
- * $Id: filedat.h,v 1.3 2006/09/19 11:41:48 jkbecker Exp $
+ * $Id$
  *----------------------------------------------------------------*/
 #ifndef _S_filedat_h
 #define _S_filedat_h
 typedef struct {
-  char fname[FILENAME_MAX];
-  FILE *fp;
-  int rec_req;
-  int rec_curr;
-  int ref_req;
-  int ref_curr;
-  int rec_max;
+	char fname[FILENAME_MAX];
+	FILE *fp;
+	int rec_req;
+	int rec_curr;
+	int ref_req;
+	int ref_curr;
+	int rec_max;
 } file_data;
 
 #endif

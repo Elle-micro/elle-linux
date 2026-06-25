@@ -1,2 +1,0 @@
-Type ;	 Timestep ;	 percent transformed ;	 total area ;	 lowest_time ;	 nb spin partikel ;	 total spinarea ;	 new area (total) ;	 new_area (total) / lowest_time ;	 average rate from new area ;	 percentage of new area ;	 new_area / (the_size * lowest_time) ;	 percentage transformed area (partikel) ;	 partikel_area / (the_size * lowest_time) ;	 average_normal_stress_on_transformed_particle ;	 average dir_rate
-

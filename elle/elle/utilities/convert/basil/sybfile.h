@@ -15,16 +15,17 @@ int read_data();
 #ifdef __cplusplus
 extern "C" {
 #endif
-int file_open(file_data **data, char *name, int max, char *mode);
-int read_data(FILE *fp, char *string_vars, int *int_vars, float *fl_vars,
-              int **arraysi, float **arraysf, float *xmin, float *xmax,
-              float *ymin, float *ymax, int *current, int req, int *maxrec,
-              int rotate);
-int read_reference(FILE *fp, int *int_vars, float **arraysf, int current,
-                   int *ref_curr, int req, int rotate);
+int file_open( file_data **data, char *name, int max, char *mode );
+int read_data( FILE *fp,char *string_vars,int *int_vars,
+               float *fl_vars, int **arraysi,float **arraysf,
+               float *xmin,float *xmax, float *ymin,float *ymax,
+               int *current, int req,int *maxrec,int rotate );
+int read_reference( FILE *fp,int *int_vars, float **arraysf,
+               int current, int *ref_curr, int req,int rotate );
 #ifdef __cplusplus
 }
 #endif
 #endif
 
 #endif
+

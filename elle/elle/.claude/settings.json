@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pkill -f \"elle_gbm\")",
+      "Bash(/Users/00073294/Documents/GitHub/elle-linux/elle-linux/elle/elle/binwx/elle_gbm --help)",
+      "Bash(ls /Users/00073294/Documents/GitHub/elle-linux/elle-linux/elle/ 2>/dev/null | head -20)",
+      "Read(//Users/00073294/Documents/GitHub/elle-linux/elle-linux/elle//**)",
+      "Bash(find /Users/00073294/Documents/GitHub/elle-linux/elle-linux/elle/ -name \"*.shelle\" 2>/dev/null | head -10)",
+      "Read(//Users/00073294/Documents/GitHub/elle-linux/elle-linux//**)",
+      "Bash(ls /Users/00073294/Documents/GitHub/elle-linux/elle-linux/ 2>/dev/null *)",
+      "Read(//Users/00073294/Documents/GitHub/elle-linux//**)",
+      "Bash(ls /Users/00073294/Documents/GitHub/ 2>/dev/null | grep elle)",
+      "Read(//Users/00073294/Documents/GitHub//**)",
+      "Bash(ls /Users/00073294/Documents/GitHub/elle-linux/elle-linux/elle/elle/../)",
+      "Bash(python3 -c ' *)",
+      "Bash(make depend *)",
+      "Bash(make)",
+      "Bash(make install *)",
+      "Bash(awk '{print $6,$7,$8}')",
+      "Bash(make install_wx)"
+    ],
+    "additionalDirectories": [
+      "/Users/00073294/.claude/projects/-Users-00073294-Documents-GitHub-elle-linux-elle-linux-elle-elle/memory"
+    ]
+  }
+}

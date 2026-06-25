@@ -1,26 +1,26 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: update.cc,v $
- * Revision:  $Revision: 1.3 $
- * Date:      $Date: 2007/06/28 13:15:36 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #include "update.h"
 #include "display.h"
-#include "file.h"
 #include "runopts.h"
+#include "file.h"
 /*****************************************************
 
 static const char rcsid[] =
-       "$Id: update.cc,v 1.3 2007/06/28 13:15:36 levans Exp $";
+       "$Id$";
 
 ******************************************************/
 
-int ElleUpdate() {
-  ElleIncrementCount();
-  if (ElleDisplay())
-    ElleUpdateDisplay();
-  /*ElleCheckFiles();*/
-  return 0; // ensure defined return value
+int ElleUpdate()
+{
+    ElleIncrementCount();
+    if (ElleDisplay()) ElleUpdateDisplay();
+	/*ElleCheckFiles();*/
+    return 0;
 }

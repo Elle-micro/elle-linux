@@ -16,19 +16,17 @@
 #ifndef _E_meltsats_h
 #define _E_meltstats_h
 
-#include <cstdio> // for FILE*
 
-class stats {
+class stats{
 public:
-  /*!Initializes the melt statistics (writes out the initial file)*/
-  void initmeltstats(void);
-  /*!Saves out statistics in file */
-  void SaveMeltStats(int mineral, int Count);
-
+/*!Initializes the melt statistics (writes out the initial file)*/
+	void initmeltstats(void);
+    /*!Saves out statistics in file */
+	void SaveMeltStats(int mineral,int Count);
 private:
-  FILE* statsout = nullptr; // ensure default initialization
-  void CalcAreaMineral(int mineral, int iflynn);
-  void getFlynnCircumference(int mineral, int Flynn);
-  void calculateAngle(int mineral, int Flynn);
+	FILE *statsout;
+	void CalcAreaMineral(int mineral,int iflynn);
+	void getFlynnCircumference(int mineral,int Flynn);
+	void calculateAngle(int mineral, int Flynn);
 };
 #endif

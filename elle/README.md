@@ -47,7 +47,7 @@ sudo apt-get install -y \
 ### 2. Get the source
 
 ```bash
-git clone https://github.com/Elle-micro/elle-linux elle
+git clone <repository-url> elle
 cd elle/elle
 ```
 
@@ -133,7 +133,7 @@ gfortran --version
 ### 4. Get the source
 
 ```bash
-git clone https://github.com/Elle-micro/elle-linux elle
+git clone <repository-url> elle
 cd elle/elle
 ```
 

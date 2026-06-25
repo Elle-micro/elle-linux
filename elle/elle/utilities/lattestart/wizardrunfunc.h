@@ -18,14 +18,15 @@
 // Headers
 //-----------------------------------------------------------------------------
 
-#include "userdat.h"
 #include "wx/dialog.h"
+#include "userdat.h"
 
+#include "wx/variant.h"
 #include "wx/spinbutt.h"
 #include "wx/spinctrl.h"
-#include "wx/variant.h"
 
-enum process_run {
+enum process_run
+{
   EDIT_MIKE_RUNFUNCTIONS,
   EDIT_COMPACTION,
   EDIT_PURESHEAR,
@@ -43,40 +44,41 @@ enum process_run {
 // Class definition: WizardDialog
 //-----------------------------------------------------------------------------
 
-class WizardDialogRunFunc : public wxDialog {
+class WizardDialogRunFunc : public wxDialog
+  {
 
-public:
-  WizardDialogRunFunc(wxWindow *parent,
-                      process_run prc = EDIT_MIKE_RUNFUNCTIONS,
-                      usdat *userdata = new(usdat));
+  public:
 
-  // Destructor.
-  ~WizardDialogRunFunc();
+    WizardDialogRunFunc( wxWindow* parent, process_run prc = EDIT_MIKE_RUNFUNCTIONS, usdat* userdata = new(usdat) );
 
-  usdat *userdat;
-  int proc;
+    // Destructor.
+    ~WizardDialogRunFunc();
 
-private:
-  void CloseExtraDeform();
-  void SetRunFunc();
-  void CloseRunFunc();
+    usdat* userdat;
+    int proc;
 
-private:
-  void Cancel(wxCommandEvent &event);
-  void OnOk(wxCommandEvent &event);
-  void ExtraDeform(wxCommandEvent &event);
-  void SetStepsizeDef(wxCommandEvent &event);
-  void SetViscDef(wxCommandEvent &event);
-  void SetStyStressDef(wxCommandEvent &event);
-  void SetStyShrinkDef(wxCommandEvent &event);
-  void SetShrinkNbDef(wxCommandEvent &WXUNUSED(event));
-  void SetShrinkShrinkDef(wxCommandEvent &WXUNUSED(event));
-  void SetShrinkBoxDef(wxCommandEvent &WXUNUSED(event));
-  void CallSetRunFunc(wxCommandEvent &WXUNUSED(event));
+  private:
+    void CloseExtraDeform();
+    void SetRunFunc();
+    void CloseRunFunc();
 
-  // Any class wishing to process wxWidgets events must use this macro
-  DECLARE_EVENT_TABLE()
-};
+  private:
+    void Cancel( wxCommandEvent& event );
+    void OnOk( wxCommandEvent& event );
+    void ExtraDeform( wxCommandEvent& event );
+    void SetStepsizeDef (wxCommandEvent& event);
+    void SetViscDef (wxCommandEvent& event);
+    void SetStyStressDef (wxCommandEvent& event);
+    void SetStyShrinkDef (wxCommandEvent& event);
+    void SetShrinkNbDef (wxCommandEvent& WXUNUSED(event));
+    void SetShrinkShrinkDef (wxCommandEvent& WXUNUSED(event));
+    void SetShrinkBoxDef (wxCommandEvent& WXUNUSED(event));
+    void CallSetRunFunc( wxCommandEvent& WXUNUSED(event));
+
+    // Any class wishing to process wxWidgets events must use this macro
+    DECLARE_EVENT_TABLE()
+
+  };
 
 //-----------------------------------------------------------------------------
 // End single inclusion of this .h file condition

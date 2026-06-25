@@ -1,9 +1,9 @@
-/*****************************************************
+ /*****************************************************
  * Copyright: (c) L. A. Evans
- * File:      $RCSfile: version.h,v $
- * Revision:  $Revision: 1.2 $
- * Date:      $Date: 2003/12/19 01:15:24 $
- * Author:    $Author: levans $
+ * File:      $RCSfile$
+ * Revision:  $Revision$
+ * Date:      $Date$
+ * Author:    $Author$
  *
  ******************************************************/
 #ifndef _E_version_h

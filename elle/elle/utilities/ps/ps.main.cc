@@ -7,41 +7,48 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "display.h"
+#include "runopts.h"
+#include "init.h"
 #include "error.h"
 #include "file.h"
-#include "init.h"
 #include "parseopts.h"
-#include "runopts.h"
 #include "setup.h"
+#include "display.h"
 
-main(int argc, char **argv) {
-  int err = 0;
-  char *infile;
+int main(int argc, char **argv)
+{
+    int err=0;
+    char *infile;
 
-  ElleInit();
+    ElleInit();
 
-  if (err = ParseOptions(argc, argv))
-    OnError("", err);
+    if (err=ParseOptions(argc,argv))
+        OnError("",err);
 
-  SetupApp(argc, argv);
+    SetupApp(argc,argv);
 
-  /*
-   * read the data
-   */
-  infile = ElleFile();
-  if (strlen(infile) > 0) {
-    if (err = ElleReadData(infile))
-      OnError("", err);
     /*
-     * initialize any necessary flynn attributes which
-     * are not in the input file
+     * read the data
      */
-  }
+    infile = ElleFile();
+    if (strlen(infile)>0) {
+        if (err=ElleReadData(infile)) OnError("",err);
+        /*
+         * initialize any necessary flynn attributes which
+         * are not in the input file
+         */
+    }
 
-  Run_App(0);
+    Run_App(0);
+} 
+
+int SetStage(int stage)
+{
+
+    return 0;
 }
 
-int SetStage(int stage) {}
+void ClearBg()
+{
+}
 
-void ClearBg() {}

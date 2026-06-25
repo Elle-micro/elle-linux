@@ -1,42 +1,36 @@
-# ELLE (Legacy Source Tree README)
 
-This directory once contained its own Imake / install script based build system.
-Those mechanisms (Imakefile, install.sh, install.win, config.guess/sub, Makefile, *.tmpl, extra.rules)
-have been removed in favor of a unified Conan + CMake + Ninja workflow at the repository root.
+------------------------------------------------------------------
+INSTALLATION NOTES for ELLE
+------------------------------------------------------------------
 
-## Current Build Instructions
-See the top-level `BUILD.md` for authoritative, up-to-date build, install, and packaging steps.
-Typical build (Release, headless):
+UNIX systems
 
-```
-conan install . -s build_type=Release --build=missing -of build
-cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j
-```
+In the following steps, replace /usr/local with the directory in which
+you decide to install the package.
 
-Executables and libraries are written to the `build/` directory only; the source tree should remain clean.
+1)  elle.tar.gz (or elle.tgz)
+    Extract the file in an appropriate directory, usually /usr/local.
+      tar xzf elle.tar.gz 
 
-## GUI (Optional)
-If GUI support is reintroduced, it will be done through CMake options (e.g. `-DELLE_BUILD_GUI=ON`) once the
-`wxWidgets` dependency is added to `conanfile.txt`. Historical WX build paths in this directory are deprecated.
+    elle.tar.Z
+    Uncompress and untar the elle.tar.Z file in an appropriate directory,
+    usually /usr/local.
+      uncompress elle.tar.Z
+      tar xvf elle.tar
+    or
+      zcat elle.tar.Z | tar xvf -
 
-## What Was Removed
-- Legacy install scripts: `install.sh`, `install.win`
-- Imake / X11 templates: `Imakefile`, `elle.tmpl`, `extra.rules`, `Makefile*`
-- Autoconf triplet helpers: `config.guess`, `config.sub`
-- Prebuilt static archives and object files (previous clean-up step)
+2) change to the directory /usr/local/elle/elle and run
+     ./install.sh help
+   and follow the instructions to build the versions you need.
+   To compile the WX programs, you must have wxWidgets libraries
+   installed (www.wxwidgets.org)
+   This script uses xmkmf, imake and the configuration files in
+   the X11 configuration directory (eg /usr/X11R6/lib/config)
 
-These files offered no functionality beyond what the consolidated CMake project now provides and could cause confusion.
+CYGWIN
 
-## Migration Notes
-Historical notes about source adjustments and modernization are tracked in `PORTING_NOTES.md` and `CHANGELOG.md`.
-If you need to reproduce an ancient environment, consult version control history prior to their removal.
+1) as above
 
-## Contributing
-See `CONTRIBUTING.md` at the repository root. Please avoid committing build outputs (`*.o`, legacy `lib*.a`, etc.); CI enforces a clean tree.
-
-## License
-Refer to the root `LICENSE`. Any legacy license texts in subfolders remain informational only.
-
----
-This README now serves purely as a compatibility notice and pointer to the modern build system.
+2) change to the directory /usr/local/elle/elle and run
+     ./install.win wx
